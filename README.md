@@ -1,1 +1,1 @@
-# cub3D
+# C library for 42 seoul projects
