@@ -1,0 +1,85 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/09 18:07:03 by tjung             #+#    #+#             */
+/*   Updated: 2021/02/21 17:52:35 by tjung            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
+
+void	init_zero_scr(t_screen *scr)
+{
+	scr->mlx = NULL;
+	scr->win = NULL;
+	scr->width = 0;
+	scr->height = 0;
+}
+
+void	init_zero_tex(t_tex *tex)
+{
+	tex->e = NULL;
+	tex->w = NULL;
+	tex->s = NULL;
+	tex->n = NULL;
+	tex->i = NULL;
+	tex->c = 0x0;
+	tex->f = 0x0;
+}
+
+void	init_zero_map(t_map *map)
+{
+	map->tab = NULL;
+	map->mWidth = 0;
+	map->mHeight = 0;
+	map->spr = 0;
+}
+
+void	init_zero(t_game *g)
+{
+	init_zero_scr(&g->scr);
+	init_zero_tex(&g->tex);
+	init_zero_map(&g->map);
+	g->img.ptr = NULL;
+	g->img.adr = NULL;
+	g->img.bpp = 0;
+	g->img.size_line = 0;
+	g->img.endian = 0;
+	g->flag.err = 0;
+	g->flag.m = 0;
+	g->flag.pNum = 0;
+	g->p.posX = 0.0;
+	g->p.posY = 0.0;
+	g->p.dirX = 0.0;
+	g->p.dirY = 0.0;
+	g->p.planeX = 0.0;
+	g->p.planeY = 0.0;
+	g->spr = NULL;
+}
+
+int		start_cub3d(char *file, int bmp)
+{
+	t_game	g;
+
+	init_zero(&g);
+	g.scr.mlx = mlx_init();
+	if (parse_cube_file(file, &g) == -1)
+		return (close_cub3d(&g, 0));
+	if (bmp == 1)
+		return (make_bitmap(&g));//
+	g.scr.win = mlx_new_window(g.scr.mlx, g.scr.width, g.scr.height, "cub3d");
+	g.img.ptr = mlx_new_image(g.scr.mlx, g.scr.width, g.scr.height);
+	g.img.adr = (unsigned int *)mlx_get_data_addr(
+					g.img.ptr, &g.img.bpp, &g.img.size_line, &g.img.endian);
+	if (start_engine(&g) == -1)
+		return (close_cub3d(&g, 1));
+	// 1. 키 이벤트 부분
+	// 2. hook() 부분
+	// 3. hook_loop() 부분
+	// 4. mlx_loop() 부분
+	return (0);
+}
