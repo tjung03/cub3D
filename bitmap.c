@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:04:44 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/18 23:21:18 by tjung            ###   ########.fr       */
+/*   Updated: 2021/02/23 01:59:28 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int		make_bitmap(t_game *g)
 {
 	int		fd;
-	
+
 	fd = open("bitmap.bmp", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
+	close(fd);
+	return (0);
 }

@@ -6,11 +6,23 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 21:19:24 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/20 10:27:24 by tjung            ###   ########.fr       */
+/*   Updated: 2021/02/23 00:03:44 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	set_plane_v(t_game *g)
+{
+	if (g->p.dir_x == 0.0 && g->p.dir_y == -1.0)
+		g->p.plane_x = 0.66;
+	else if (g->p.dir_x == 0.0 && g->p.dir_y == 1.0)
+		g->p.plane_x = -0.66;
+	else if (g->p.dir_x == -1.0 && g->p.dir_y == 0.0)
+		g->p.plane_y = -0.66;
+	else if (g->p.dir_x == 1.0 && g->p.dir_y == 0.0)
+		g->p.plane_y = 0.66;
+}
 
 int		set_sprites_config(t_game *g)
 {
@@ -22,10 +34,10 @@ int		set_sprites_config(t_game *g)
 		return (-1);
 	k = 0;
 	i = 0;
-	while (i < g->map.mHeight)
+	while (i < g->map.height)
 	{
 		j = 0;
-		while (j < g->map.mWidth)
+		while (j < g->map.width)
 		{
 			if (g->map.tab[i][j] == '2')
 			{
@@ -47,20 +59,20 @@ void	set_player_config(t_game *g)
 	int		j;
 
 	i = 0;
-	while (i < g->map.mHeight)
+	while (i < g->map.height)
 	{
 		j = 0;
-		while (j < g->map.mWidth)
+		while (j < g->map.width)
 		{
 			c = g->map.tab[i][j];
 			if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
 			{
-				g->p.posX = (double)j + 0.5;
-				g->p.posY = (double)i + 0.5;
+				g->p.pos_x = (double)j + 0.5;
+				g->p.pos_y = (double)i + 0.5;
 				if (c == 'N' || c == 'S')
-					g->p.dirY = (c == 'N' ? -1.0 : 1.0);
+					g->p.dir_y = (c == 'N' ? -1.0 : 1.0);
 				else if (c == 'W' || c == 'E')
-					g->p.dirX = (c == 'W' ? -1.0 : 1.0);
+					g->p.dir_x = (c == 'W' ? -1.0 : 1.0);
 			}
 			j++;
 		}
@@ -82,7 +94,7 @@ int		row_len(t_game *g, char *line)
 		else if (line[i] == 'N' || line[i] == 'S'
 				|| line[i] == 'W' || line[i] == 'E')
 		{
-			g->flag.pNum++;
+			g->flag.pnum++;
 			cnt++;
 		}
 		else if (line[i] == '2')
@@ -91,7 +103,7 @@ int		row_len(t_game *g, char *line)
 			cnt++;
 		}
 	}
-	if (g->map.mWidth != 0 && g->map.mWidth != cnt)
+	if (g->map.width != 0 && g->map.width != cnt)
 		return (print_error(-1, "Error\nInvalid value in map\n"));
 	return (cnt);
 }
@@ -101,9 +113,9 @@ char	*parse_row(t_game *g, char *line, int *i)
 	char	*row;
 	int		j;
 
-	if ((g->map.mWidth = row_len(g, line)) == -1)
+	if ((g->map.width = row_len(g, line)) == -1)
 		return (NULL);
-	if (!(row = malloc(sizeof(char) * (g->map.mWidth + 1))))
+	if (!(row = malloc(sizeof(char) * (g->map.width + 1))))
 		return (NULL);
 	j = 0;
 	while (line[*i] != '\0')

@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:05:38 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/20 10:51:56 by tjung            ###   ########.fr       */
+/*   Updated: 2021/02/23 05:25:55 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <fcntl.h>
+# include <math.h>
 # include "mlx/mlx.h"
 # include "gnl/get_next_line.h"
 
@@ -27,17 +28,17 @@ typedef struct	s_screen {
 }				t_screen;
 
 typedef struct	s_img {
-	void			*ptr;
-	unsigned int	*adr;
-	int				bpp;
-	int				size_line;
-	int				endian;
+	void	*ptr;
+	char	*adr;
+	int		bpp;
+	int		size_line;
+	int		endian;
 }				t_img;
 
 typedef struct	s_flag {
 	int		err;
 	int		m;
-	int		pNum;
+	int		pnum;
 }				t_flag;
 
 typedef struct	s_tex {
@@ -52,8 +53,8 @@ typedef struct	s_tex {
 
 typedef struct	s_map {
 	char	**tab;
-	int		mWidth;
-	int		mHeight;
+	int		width;
+	int		height;
 	int		spr;
 }				t_map;
 
@@ -63,22 +64,40 @@ typedef struct	s_sprite {
 }				t_sprite;
 
 typedef struct	s_player {
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
-	double	planeX;
-	double	planeY;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 }				t_player;
 
+typedef struct	s_raycasting {
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	perp_wall_dist;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+}				t_raycasting;
+
 typedef struct	s_game {
-	t_screen	scr;
-	t_img		img;
-	t_flag		flag;
-	t_tex		tex;
-	t_map		map;
-	t_player	p;
-	t_sprite	*spr;
+	t_screen		scr;
+	t_img			img;
+	t_flag			flag;
+	t_tex			tex;
+	t_map			map;
+	t_player		p;
+	t_sprite		*spr;
+	t_raycasting	rc;
 }				t_game;
 
 /*
@@ -129,6 +148,7 @@ char			*parse_row(t_game *g, char *line, int *i);
 int				row_len(t_game *g, char *line);
 void			set_player_config(t_game *g);
 int				set_sprites_config(t_game *g);
+void			set_plane_v(t_game *g);
 
 /*
 **				parse_check.c
@@ -144,10 +164,26 @@ int				map_check(t_game *g);
 int				make_bitmap(t_game *g);
 
 /*
-**				raycasting.c
+**				engine.c
 */
 
 int				start_engine(t_game *g);
-void			set_plane(t_game *g);
+
+/*
+**				raycasting.c
+*/
+
+void			get_line_h(t_game *g, int x, int *line_h);
+void			init_zero_rcv(t_game *g);
+void			set_rcv(t_game *g, int x);
+void			calculate_ray_dist(t_game *g);
+void			perform_dda(t_game *g);
+
+/*
+**				draw.c
+*/
+
+void			draw_pixel(t_game *g, int x, int y, unsigned int color);
+void			draw_vertical_l(t_game *g, int len, int x, unsigned int color);
 
 #endif

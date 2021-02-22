@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 18:55:46 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/18 23:46:03 by tjung            ###   ########.fr       */
+/*   Updated: 2021/02/23 01:13:11 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,33 +18,37 @@ int		parse_map(t_game *g, char *line, int *i)
 	int		j;
 
 	g->flag.m = 1;
-	if (!(tmp = malloc(sizeof(char *) * (g->map.mHeight + 2))))
+	if (!(tmp = malloc(sizeof(char *) * (g->map.height + 2))))
 		return (print_error(-1, "Error\nMalloc fail(Map table)\n"));
 	j = -1;
-	while (++j < g->map.mHeight)
+	while (++j < g->map.height)
 		tmp[j] = g->map.tab[j];
-	if ((tmp[g->map.mHeight] = parse_row(g, line, i)) == NULL)
+	if ((tmp[g->map.height] = parse_row(g, line, i)) == NULL)
 	{
 		free(tmp);
 		return (print_error(-1, "Error\nInvalid map config\n"));
 	}
-	tmp[g->map.mHeight + 1] = NULL;
-	if (g->map.mHeight > 0)
+	tmp[g->map.height + 1] = NULL;
+	if (g->map.height > 0)
 		free(g->map.tab);
 	g->map.tab = tmp;
-	g->map.mHeight++;
+	g->map.height++;
 	return (0);
 }
 
 int		parse_resolution(t_game *g, char *line, int *i)
 {
+	int		w;
+	int		h;
+
 	(*i)++;
+	mlx_get_screen_size(g->scr.mlx, &w, &h);
 	g->scr.width = ft_atoi(line, i);
 	g->scr.height = ft_atoi(line, i);
-	if (g->scr.width > 2240)
-		g->scr.width = 2240;
-	if (g->scr.height > 1400)
-		g->scr.height = 1400;
+	if (g->scr.width > w)
+		g->scr.width = w;
+	if (g->scr.height > h)
+		g->scr.height = h;
 	skip_space(line, i);
 	if (g->scr.width <= 0 || g->scr.height <= 0 || line[*i] != '\0')
 		return (print_error(-1, "Error\nInvalid resolution\n"));

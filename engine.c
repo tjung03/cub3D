@@ -1,42 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
+/*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/17 13:03:59 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/23 00:03:45 by tjung            ###   ########.fr       */
+/*   Created: 2021/02/23 00:46:24 by tjung             #+#    #+#             */
+/*   Updated: 2021/02/23 07:04:36 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		close_cub3d(t_game *g, int win)
+int		start_engine(t_game *g)
 {
-	int		i;
+	int		line_h;
+	int		x;
 
-	i = -1;
-	while (++i < g->map.height)
+	set_plane_v(g);
+	line_h = 0;
+	x = -1;
+	while (++x < g->scr.width)
 	{
-		if (g->map.tab[i])
-			free(g->map.tab[i]);
+		get_line_h(g, x, &line_h);
+		draw_vertical_l(g, line_h, x, g->tex.c);
 	}
-	if (g->map.tab)
-		free(g->map.tab);
-	if (g->tex.e)
-		free(g->tex.e);
-	if (g->tex.w)
-		free(g->tex.w);
-	if (g->tex.s)
-		free(g->tex.s);
-	if (g->tex.n)
-		free(g->tex.n);
-	if (g->tex.i)
-		free(g->tex.i);
-	if (win == 1)
-		mlx_destroy_window(g->scr.mlx, g->scr.win);
-	free(g->scr.mlx);
-	exit(0);
 	return (0);
 }
