@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:05:38 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/23 05:25:55 by tjung            ###   ########.fr       */
+/*   Updated: 2021/02/24 23:22:42 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,10 @@ void			perform_dda(t_game *g);
 */
 
 void			draw_pixel(t_game *g, int x, int y, unsigned int color);
-void			draw_vertical_l(t_game *g, int len, int x, unsigned int color);
+//void			draw_vertical_l(t_game *g, int len, int x, unsigned int color);
+//void			draw_rectangle(t_game *g, int len, int x, unsigned int color);
+void			draw_rec(t_game *g, int x, int y, unsigned int color);
+void			draw_map(t_game *g);
+void			draw_grid(t_game *g);
 
 #endif
