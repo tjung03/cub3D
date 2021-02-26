@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:47:36 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/26 21:47:54 by tjung            ###   ########.fr       */
+/*   Updated: 2021/02/26 23:47:02 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,10 @@ int		start_cub3d(char *file, int bmp)
 	g.img.ptr = mlx_new_image(g.scr.mlx, g.scr.size.x, g.scr.size.y);
 	g.img.adr = mlx_get_data_addr(
 					g.img.ptr, &g.img.bpp, &g.img.size_line, &g.img.endian);
-	//draw_map(&g);
-	//draw_player(&g);
+	draw_map(&g);
+	draw_player(&g);
 	if (start_engine(&g) == -1)
 		return (close_cub3d(&g, 1));
-
 	// 1. 키 이벤트 부분
 	// 2. hook() 부분
 	mlx_hook(g.scr.win, X_EVENT_KEY_PRESS, 0, &key_press, &g);

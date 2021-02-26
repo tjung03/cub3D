@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 00:20:14 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/26 21:47:30 by tjung            ###   ########.fr       */
+/*   Updated: 2021/02/26 23:46:13 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	draw_player(t_game *g)
 	player.y = g->p.pos.y * 33 - 1;
 	draw_frec(g, player, 4, 0x0000FF);
 }
-
 
 void	draw_vertical_l(t_game *g, int len, int x, unsigned int color)
 {
