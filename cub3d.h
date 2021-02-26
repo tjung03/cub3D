@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:05:38 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/24 23:22:42 by tjung            ###   ########.fr       */
+/*   Updated: 2021/02/26 21:46:54 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,32 @@
 # include "mlx/mlx.h"
 # include "gnl/get_next_line.h"
 
+#define X_EVENT_KEY_PRESS		2
+#define X_EVENT_KEY_RELEASE		3
+#define X_EVENT_KEY_EXIT		17
+
+# define KEY_ESC		53
+# define KEY_W			13
+# define KEY_A			0
+# define KEY_S			1
+# define KEY_D			2
+# define KEY_LEFT		123
+# define KEY_RIGHT		124
+
+typedef struct	s_fvec {
+	double	x;
+	double	y;
+}				t_fvec;
+
+typedef struct	s_ivec {
+	int		x;
+	int		y;
+}				t_ivec;
+
 typedef struct	s_screen {
 	void	*mlx;
 	void	*win;
-	int		width;
-	int		height;
+	t_ivec	size;
 }				t_screen;
 
 typedef struct	s_img {
@@ -53,38 +74,24 @@ typedef struct	s_tex {
 
 typedef struct	s_map {
 	char	**tab;
-	int		width;
-	int		height;
+	t_ivec	size;
 	int		spr;
 }				t_map;
 
-typedef struct	s_sprite {
-	double	x;
-	double	y;
-}				t_sprite;
-
 typedef struct	s_player {
-	double	pos_x;
-	double	pos_y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
+	t_fvec	pos;
+	t_fvec	dir;
+	t_fvec	plane;
 }				t_player;
 
 typedef struct	s_raycasting {
 	double	camera_x;
-	double	ray_dir_x;
-	double	ray_dir_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	side_dist_x;
-	double	side_dist_y;
+	t_fvec	ray_dir;
+	t_fvec	delta_dist;
+	t_fvec	side_dist;
 	double	perp_wall_dist;
-	int		map_x;
-	int		map_y;
-	int		step_x;
-	int		step_y;
+	t_ivec	map;
+	t_ivec	step;
 	int		hit;
 	int		side;
 }				t_raycasting;
@@ -96,7 +103,7 @@ typedef struct	s_game {
 	t_tex			tex;
 	t_map			map;
 	t_player		p;
-	t_sprite		*spr;
+	t_fvec			*spr;
 	t_raycasting	rc;
 }				t_game;
 
@@ -184,10 +191,17 @@ void			perform_dda(t_game *g);
 */
 
 void			draw_pixel(t_game *g, int x, int y, unsigned int color);
-//void			draw_vertical_l(t_game *g, int len, int x, unsigned int color);
+void			draw_vertical_l(t_game *g, int len, int x, unsigned int color);
 //void			draw_rectangle(t_game *g, int len, int x, unsigned int color);
-void			draw_rec(t_game *g, int x, int y, unsigned int color);
+void			draw_irec(t_game *g, t_ivec vec, int scale, unsigned int color);
+void			draw_frec(t_game *g, t_fvec vec, int scale, unsigned int color);
 void			draw_map(t_game *g);
-void			draw_grid(t_game *g);
+void			draw_player(t_game *g);
+
+/*
+**				key.c
+*/
+
+int    			 key_press(int keycode, t_game *g);
 
 #endif

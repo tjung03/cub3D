@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:47:36 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/24 23:21:49 by tjung            ###   ########.fr       */
+/*   Updated: 2021/02/26 21:47:54 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	init_zero_scr(t_screen *scr)
 {
 	scr->mlx = NULL;
 	scr->win = NULL;
-	scr->width = 0;
-	scr->height = 0;
+	scr->size.x = 0;
+	scr->size.y = 0;
 }
 
 void	init_zero_tex(t_tex *tex)
@@ -34,8 +34,8 @@ void	init_zero_tex(t_tex *tex)
 void	init_zero_map(t_map *map)
 {
 	map->tab = NULL;
-	map->width = 0;
-	map->height = 0;
+	map->size.x = 0;
+	map->size.y = 0;
 	map->spr = 0;
 }
 
@@ -52,12 +52,12 @@ void	init_zero(t_game *g)
 	g->flag.err = 0;
 	g->flag.m = 0;
 	g->flag.pnum = 0;
-	g->p.pos_x = 0.0;
-	g->p.pos_y = 0.0;
-	g->p.dir_x = 0.0;
-	g->p.dir_y = 0.0;
-	g->p.plane_x = 0.0;
-	g->p.plane_y = 0.0;
+	g->p.pos.x = 0.0;
+	g->p.pos.y = 0.0;
+	g->p.dir.x = 0.0;
+	g->p.dir.y = 0.0;
+	g->p.plane.x = 0.0;
+	g->p.plane.y = 0.0;
 	g->spr = NULL;
 }
 
@@ -72,18 +72,18 @@ int		start_cub3d(char *file, int bmp)
 		return (close_cub3d(&g, 0));
 	if (bmp == 1)
 		return (make_bitmap(&g));//
-	g.scr.win = mlx_new_window(g.scr.mlx, g.scr.width, g.scr.height, "cub3d");
-	g.img.ptr = mlx_new_image(g.scr.mlx, g.scr.width, g.scr.height);
+	g.scr.win = mlx_new_window(g.scr.mlx, g.scr.size.x, g.scr.size.y, "cub3d");
+	g.img.ptr = mlx_new_image(g.scr.mlx, g.scr.size.x, g.scr.size.y);
 	g.img.adr = mlx_get_data_addr(
 					g.img.ptr, &g.img.bpp, &g.img.size_line, &g.img.endian);
-	int x = 0, y = 0;
-	draw_map(&g);
-	draw_grid(&g);
-	//if (start_engine(&g) == -1)
-	//	return (close_cub3d(&g, 1));
+	//draw_map(&g);
+	//draw_player(&g);
+	if (start_engine(&g) == -1)
+		return (close_cub3d(&g, 1));
 
 	// 1. 키 이벤트 부분
 	// 2. hook() 부분
+	mlx_hook(g.scr.win, X_EVENT_KEY_PRESS, 0, &key_press, &g);
 	// 3. hook_loop() 부분
 	// 4. mlx_loop() 부분
 	mlx_put_image_to_window(g.scr.mlx, g.scr.win, g.img.ptr, 0, 0);

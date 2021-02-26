@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 00:20:14 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/24 23:29:42 by tjung            ###   ########.fr       */
+/*   Updated: 2021/02/26 21:47:30 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,34 @@ void	draw_pixel(t_game *g, int x, int y, unsigned int color)
 	*(unsigned int *)dst = color;
 }
 
-void	draw_rec(t_game *g, int	x, int y, unsigned int color)
+void	draw_irec(t_game *g, t_ivec vec, int scale, unsigned int color)
 {
 	int		i;
 	int		j;
 
-	i = x;
-	while (i < 32)
+	i = vec.x;
+	while (i < vec.x + scale)
 	{
-		j = y;
-		while (j < 32)
+		j = vec.y;
+		while (j < vec.y + scale)
+		{
+			draw_pixel(g, i, j, color);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	draw_frec(t_game *g, t_fvec vec, int scale, unsigned int color)
+{
+	double	i;
+	double	j;
+
+	i = vec.x;
+	while (i < vec.x + scale)
+	{
+		j = vec.y;
+		while (j < vec.y + scale)
 		{
 			draw_pixel(g, i, j, color);
 			j++;
@@ -42,74 +60,53 @@ void	draw_rec(t_game *g, int	x, int y, unsigned int color)
 
 void	draw_map(t_game *g)
 {
+	t_ivec	map;
 	int		i;
 	int		j;
-	int		x;
-	int		y;
 
-	x = 0;
-	y = 0;
+	map.y = 0;
 	i = 0;
-	while (i < g->map.height)
+	while (i < g->map.size.y)
 	{
+		map.x = 0;
 		j = 0;
-		while (j < g->map.width)
+		while (j < g->map.size.x)
 		{
 			if (g->map.tab[i][j] == '1')
-				draw_rec(g, x, y, 0x00FF00);
-			else if (g->map.tab[i][j] == '0')
-				draw_rec(g, x, y, 0xFFFFFF);
-			x += 32;
+				draw_irec(g, map, 32, 0x00FF00);
+			else
+				draw_irec(g, map, 32, 0xFFFFFF);
+			map.x += 33;
 			j++;
 		}
-		y += 32;
+		map.y += 33;
 		i++;
 	}
 }
 
-void	draw_grid(t_game *g)
+void	draw_player(t_game *g)
 {
-	int		x;
-	int		y;
+	t_fvec	player;
 
-	x = 0;
-	while (x < g->scr.width)
-	{
-		y = 0;
-		while (y < g->scr.height)
-		{
-			draw_pixel(g, x, y, 0x000000);
-			y++;
-		}
-		x += 32;
-	}
-	x = 0;
-	while (x < g->scr.width)
-	{
-		y = 0;
-		while (y < g->scr.height)
-		{
-			draw_pixel(g, y, x, 0x000000);
-			y++;
-		}
-		x += 32;
-	}
+	player.x = g->p.pos.x * 33 - 1;
+	player.y = g->p.pos.y * 33 - 1;
+	draw_frec(g, player, 4, 0x0000FF);
 }
-/*
+
+
 void	draw_vertical_l(t_game *g, int len, int x, unsigned int color)
 {
 	int		draw_start;
 	int		draw_end;
 	int		y;
 
-	draw_start = g->scr.height / 2 - len / 2;
-	draw_end = g->scr.height / 2 + len / 2;
+	draw_start = g->scr.size.y / 2 - len / 2;
+	draw_end = g->scr.size.y / 2 + len / 2;
 	if (draw_start < 0)
 		draw_start = 0;
-	if (draw_end >= g->scr.height)
-		draw_end = g->scr.height - 1;
+	if (draw_end >= g->scr.size.y)
+		draw_end = g->scr.size.y - 1;
 	y = draw_start - 1;
 	while (++y <= draw_end)
 		draw_pixel(g, x, y, color);
 }
-*/

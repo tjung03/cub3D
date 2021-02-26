@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
+/*   key.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/17 13:03:59 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/26 20:07:08 by tjung            ###   ########.fr       */
+/*   Created: 2021/02/26 20:40:09 by tjung             #+#    #+#             */
+/*   Updated: 2021/02/26 21:48:16 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		close_cub3d(t_game *g, int win)
+int		key_press(int keycode, t_game *g)
 {
-	if (win == 1)
-		mlx_destroy_window(g->scr.mlx, g->scr.win);
-	free(g->scr.mlx);
-	exit(0);
+	if (keycode == KEY_ESC)
+    	close_cub3d(g, 1);
+	/*if (keycode == KEY_W)
+		g->p.pos.y -= 0.1;
+	if (keycode == KEY_A)
+		g->p.pos.x -= 0.1;
+	if (keycode == KEY_S)
+		g->p.pos.y += 0.1;
+	if (keycode == KEY_D)
+		g->p.pos.x += 0.1;
+	printf("%lf, %lf\n", g->p.pos.x, g->p.pos.y);
+	draw_map(g);
+	draw_player(g);
+	mlx_put_image_to_window(g->scr.mlx, g->scr.win, g->img.ptr, 0, 0);*/
 	return (0);
 }

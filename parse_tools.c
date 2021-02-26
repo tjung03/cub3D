@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 18:55:46 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/24 19:55:42 by tjung            ###   ########.fr       */
+/*   Updated: 2021/02/26 20:09:54 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@ int		parse_map(t_game *g, char *line, int *i)
 	int		j;
 
 	g->flag.m = 1;
-	if (!(tmp = malloc(sizeof(char *) * (g->map.height + 2))))
+	if (!(tmp = malloc(sizeof(char *) * (g->map.size.y + 2))))
 		return (print_error(-1, "Error\nMalloc fail(Map table)\n"));
 	j = -1;
-	while (++j < g->map.height)
+	while (++j < g->map.size.y)
 		tmp[j] = g->map.tab[j];
-	if ((tmp[g->map.height] = parse_row(g, line, i)) == NULL)
+	if ((tmp[g->map.size.y] = parse_row(g, line, i)) == NULL)
 	{
 		free(tmp);
 		return (print_error(-1, "Error\nInvalid map config\n"));
 	}
-	tmp[g->map.height + 1] = NULL;
-	if (g->map.height > 0)
+	tmp[g->map.size.y + 1] = NULL;
+	if (g->map.size.y > 0)
 		free(g->map.tab);
 	g->map.tab = tmp;
-	g->map.height++;
+	g->map.size.y++;
 	return (0);
 }
 
@@ -43,14 +43,14 @@ int		parse_resolution(t_game *g, char *line, int *i)
 
 	(*i)++;
 	mlx_get_screen_size(g->scr.mlx, &w, &h);
-	g->scr.width = ft_atoi(line, i);
-	g->scr.height = ft_atoi(line, i);
-	if (g->scr.width > w)
-		g->scr.width = w;
-	if (g->scr.height > h)
-		g->scr.height = h;
+	g->scr.size.x = ft_atoi(line, i);
+	g->scr.size.y = ft_atoi(line, i);
+	if (g->scr.size.x > w)
+		g->scr.size.x = w;
+	if (g->scr.size.y > h)
+		g->scr.size.y = h;
 	skip_space(line, i);
-	if (g->scr.width <= 0 || g->scr.height <= 0 || line[*i] != '\0')
+	if (g->scr.size.x <= 0 || g->scr.size.y <= 0 || line[*i] != '\0')
 		return (print_error(-1, "Error\nInvalid resolution\n"));
 	return (0);
 }

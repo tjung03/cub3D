@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "atomic": "c",
+        "cstdlib": "c",
+        "locale": "c",
+        "ostream": "c",
+        "algorithm": "c",
+        "complex": "c",
+        "new": "c"
+    }
+}
