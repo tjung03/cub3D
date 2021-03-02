@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:47:36 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/26 23:47:02 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/02 21:40:44 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,12 @@ void	init_zero(t_game *g)
 	g->p.pos.y = 0.0;
 	g->p.dir.x = 0.0;
 	g->p.dir.y = 0.0;
+	g->p.old_dir.x = 0.0;
+	g->p.old_dir.y = 0.0;
 	g->p.plane.x = 0.0;
 	g->p.plane.y = 0.0;
+	g->p.old_plane.x = 0.0;
+	g->p.old_plane.y = 0.0;
 	g->spr = NULL;
 }
 
@@ -71,20 +75,14 @@ int		start_cub3d(char *file, int bmp)
 	if (parse_cube_file(file, &g) == -1)
 		return (close_cub3d(&g, 0));
 	if (bmp == 1)
-		return (make_bitmap(&g));//
+		return (make_bitmap(&g));
 	g.scr.win = mlx_new_window(g.scr.mlx, g.scr.size.x, g.scr.size.y, "cub3d");
 	g.img.ptr = mlx_new_image(g.scr.mlx, g.scr.size.x, g.scr.size.y);
 	g.img.adr = mlx_get_data_addr(
 					g.img.ptr, &g.img.bpp, &g.img.size_line, &g.img.endian);
-	draw_map(&g);
-	draw_player(&g);
 	if (start_engine(&g) == -1)
 		return (close_cub3d(&g, 1));
-	// 1. 키 이벤트 부분
-	// 2. hook() 부분
 	mlx_hook(g.scr.win, X_EVENT_KEY_PRESS, 0, &key_press, &g);
-	// 3. hook_loop() 부분
-	// 4. mlx_loop() 부분
 	mlx_put_image_to_window(g.scr.mlx, g.scr.win, g.img.ptr, 0, 0);
 	mlx_loop(g.scr.mlx);
 	return (0);

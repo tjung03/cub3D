@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:05:38 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/26 21:46:54 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/02 22:20:52 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ typedef struct	s_map {
 typedef struct	s_player {
 	t_fvec	pos;
 	t_fvec	dir;
+	t_fvec	old_dir;
 	t_fvec	plane;
+	t_fvec	old_plane;
 }				t_player;
 
 typedef struct	s_raycasting {
@@ -192,7 +194,6 @@ void			perform_dda(t_game *g);
 
 void			draw_pixel(t_game *g, int x, int y, unsigned int color);
 void			draw_vertical_l(t_game *g, int len, int x, unsigned int color);
-//void			draw_rectangle(t_game *g, int len, int x, unsigned int color);
 void			draw_irec(t_game *g, t_ivec vec, int scale, unsigned int color);
 void			draw_frec(t_game *g, t_fvec vec, int scale, unsigned int color);
 void			draw_map(t_game *g);
@@ -203,5 +204,6 @@ void			draw_player(t_game *g);
 */
 
 int    			 key_press(int keycode, t_game *g);
+void			rotate_view(int keycode, t_game *g);
 
 #endif

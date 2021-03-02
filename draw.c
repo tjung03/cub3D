@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 00:20:14 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/26 23:46:13 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/02 19:26:51 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,14 @@ void	draw_vertical_l(t_game *g, int len, int x, unsigned int color)
 		draw_start = 0;
 	if (draw_end >= g->scr.size.y)
 		draw_end = g->scr.size.y - 1;
-	y = draw_start - 1;
-	while (++y <= draw_end)
-		draw_pixel(g, x, y, color);
+	y = -1;
+	while (++y < g->scr.size.y)
+	{
+		if (y < draw_start)
+			draw_pixel(g, x, y, g->tex.c);
+		else if (y >= draw_start && y <= draw_end)
+			draw_pixel(g, x, y, color);
+		else
+			draw_pixel(g, x, y, g->tex.f);
+	}
 }
