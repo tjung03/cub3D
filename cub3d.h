@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:05:38 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/02 22:20:52 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/05 22:31:43 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ typedef struct	s_tex {
 	unsigned int	*i;
 	unsigned int	c;
 	unsigned int	f;
+	int				hit_x;
+	int				hit_y;
 }				t_tex;
 
 typedef struct	s_map {

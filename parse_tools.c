@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 18:55:46 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/26 20:09:54 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/05 20:32:02 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		parse_xpm(t_game *g, unsigned int **tex, char *fname)
 	close(fd);
 	img = mlx_xpm_file_to_image(g->scr.mlx, fname, &tex_info[0], &tex_info[1]);
 	if (img == NULL || tex_info[0] != 64 || tex_info[1] != 64)
-		return (print_error(-1, "Error\nInvalid tex-image config\n"));
+		return (print_error(-1, "Error\nInvalid tex-image config(64x64)\n"));
 	*tex = (unsigned int *)mlx_get_data_addr(
 								img, &tex_info[2], &tex_info[3], &tex_info[4]);
 	free(img);

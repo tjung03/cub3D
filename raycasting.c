@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:47:30 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/26 23:37:13 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/05 22:32:44 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,11 @@ void	perform_dda(t_game *g)
 			g->rc.side = 1;
 		}
 		if (g->map.tab[g->rc.map.y][g->rc.map.x] > '0')
+		{
+			g->tex.hit_x = g->rc.map.x;
+			g->tex.hit_y = g->rc.map.y;
 			g->rc.hit = 1;
+		}
 	}
 }
 
