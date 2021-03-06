@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 20:40:09 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/05 21:28:46 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/07 07:14:25 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void	move_view(t_game *g, double delta_x, double delta_y)
 	double	tmp_x;
 	double	tmp_y;
 
-	tmp_x = g->p.pos.x + delta_x * 0.1;
-	tmp_y = g->p.pos.y + delta_y * 0.1;
+	tmp_x = g->p.pos.x + delta_x * 0.3;
+	tmp_y = g->p.pos.y + delta_y * 0.3;
 	if (g->map.tab[(int)g->p.pos.y][(int)g->p.pos.x] != '1')
 	{
 		if (g->map.tab[(int)tmp_y][(int)tmp_x] != '1')
 		{
-			g->p.pos.x = tmp_x;
-			g->p.pos.y = tmp_y;
+			g->p.pos.x += delta_x * 0.1;
+			g->p.pos.y += delta_y * 0.1;
 		}
 	}
 }
