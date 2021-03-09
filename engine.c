@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 00:46:24 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/05 22:50:19 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/09 22:29:51 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int				start_engine(t_game *g)
 	int		x;
 
 	double	wall_x;
-	double	wall_real;
 	int		tex_x;
 	double	step;
 	double	tex_pos;
@@ -38,16 +37,19 @@ int				start_engine(t_game *g)
 			wall_x = g->p.pos.y + g->rc.perp_wall_dist * g->rc.ray_dir.y;
 		else
 			wall_x = g->p.pos.x + g->rc.perp_wall_dist * g->rc.ray_dir.x;
-		wall_real = wall_x;
 		wall_x -= floor(wall_x);
 		tex_x = (int)(wall_x * 64.0);
 		if ((g->rc.side == 0 && g->rc.ray_dir.x > 0)
 				|| (g->rc.side == 1 && g->rc.ray_dir.y < 0))
 			tex_x = 64 - tex_x - 1;
 		step = 1.0 * 64 / line_h;
-		tex_pos = ((g->scr.size.y / 2 - line_h / 2) - (g->scr.size.y / 2) + (line_h / 2)) * step;
 		draw_start = g->scr.size.y / 2 - line_h / 2;
 		draw_end = g->scr.size.y / 2 + line_h / 2;
+		if (draw_start < 0)
+			draw_start = 0;
+		if (draw_end >= g->scr.size.y)
+			draw_end = g->scr.size.y - 1;
+		tex_pos = (draw_start - (g->scr.size.y / 2) + (line_h / 2)) * step;
 		y = -1;
 		while (++y < g->scr.size.y)
 		{
@@ -71,10 +73,6 @@ int				start_engine(t_game *g)
 					else
 						color = g->tex.s[64 * tex_y + tex_x];
 				}
-				//	<Error>
-				//	1.	벽에 가까이 가면 벽이 휘고, 더 가까이 가면 벽 텍스처가 나오지 않음.
-				//	2.	플레이어 위치에 없어야 하는 벽이 생김.
-				//		(이 벽은 통과가 되는 것으로 보아 텍스처가 잘 못 그려진 것)
 				if (g->rc.side == 1)
 					color = (color >> 1) & 8355711;
 				draw_pixel(g, x, y, color);
