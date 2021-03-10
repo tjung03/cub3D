@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 21:33:31 by tjung             #+#    #+#             */
-/*   Updated: 2021/01/31 04:12:54 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/10 20:54:51 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char		*ft_strdup(const char *s1);
 char		*ft_strchr(const char *s, int c);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
-int		    ft_atoi(char *line, int *i);
-int		    skip_space(char *line, int *i);
+int			ft_atoi(char *line, int *i);
+int			skip_space(char *line, int *i);
 
 #endif

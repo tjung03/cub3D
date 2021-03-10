@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:47:36 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/02 21:40:44 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/10 21:23:30 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void	init_zero_scr(t_screen *scr)
 
 void	init_zero_tex(t_tex *tex)
 {
+	tex->tex_pos = 0.0;
+	tex->tex_x = 0;
+	tex->tex_y = 0;
 	tex->e = NULL;
 	tex->w = NULL;
 	tex->s = NULL;
@@ -56,12 +59,12 @@ void	init_zero(t_game *g)
 	g->p.pos.y = 0.0;
 	g->p.dir.x = 0.0;
 	g->p.dir.y = 0.0;
-	g->p.old_dir.x = 0.0;
-	g->p.old_dir.y = 0.0;
+	g->p.o_dir.x = 0.0;
+	g->p.o_dir.y = 0.0;
 	g->p.plane.x = 0.0;
 	g->p.plane.y = 0.0;
-	g->p.old_plane.x = 0.0;
-	g->p.old_plane.y = 0.0;
+	g->p.o_plane.x = 0.0;
+	g->p.o_plane.y = 0.0;
 	g->spr = NULL;
 }
 

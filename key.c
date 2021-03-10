@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 20:40:09 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/07 07:14:25 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/10 20:48:54 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@ void	rotate_view(int keycode, t_game *g)
 {
 	if (keycode == KEY_LEFT)
 	{
-		g->p.old_dir.x = g->p.dir.x;
-      	g->p.dir.x = g->p.dir.x * cos(-0.06) - g->p.dir.y * sin(-0.06);
-      	g->p.dir.y = g->p.old_dir.x * sin(-0.06) + g->p.dir.y * cos(-0.06);
-      	g->p.old_plane.x = g->p.plane.x;
-      	g->p.plane.x = g->p.plane.x * cos(-0.06) - g->p.plane.y * sin(-0.06);
-      	g->p.plane.y = g->p.old_plane.x * sin(-0.06) + g->p.plane.y * cos(-0.06);
+		g->p.o_dir.x = g->p.dir.x;
+		g->p.dir.x = g->p.dir.x * cos(-0.06) - g->p.dir.y * sin(-0.06);
+		g->p.dir.y = g->p.o_dir.x * sin(-0.06) + g->p.dir.y * cos(-0.06);
+		g->p.o_plane.x = g->p.plane.x;
+		g->p.plane.x = g->p.plane.x * cos(-0.06) - g->p.plane.y * sin(-0.06);
+		g->p.plane.y = g->p.o_plane.x * sin(-0.06) + g->p.plane.y * cos(-0.06);
 	}
 	if (keycode == KEY_RIGHT)
 	{
-		g->p.old_dir.x = g->p.dir.x;
+		g->p.o_dir.x = g->p.dir.x;
 		g->p.dir.x = g->p.dir.x * cos(0.06) - g->p.dir.y * sin(0.06);
-		g->p.dir.y = g->p.old_dir.x * sin(0.06) + g->p.dir.y * cos(0.06);
-		g->p.old_plane.x = g->p.plane.x;
+		g->p.dir.y = g->p.o_dir.x * sin(0.06) + g->p.dir.y * cos(0.06);
+		g->p.o_plane.x = g->p.plane.x;
 		g->p.plane.x = g->p.plane.x * cos(0.06) - g->p.plane.y * sin(0.06);
-		g->p.plane.y = g->p.old_plane.x * sin(0.06) + g->p.plane.y * cos(0.06);
+		g->p.plane.y = g->p.o_plane.x * sin(0.06) + g->p.plane.y * cos(0.06);
 	}
 }
 
