@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:47:30 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/05 22:32:44 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/10 20:51:12 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ void	init_zero_rcv(t_game *g)
 	g->rc.step.y = 0;
 	g->rc.hit = 0;
 	g->rc.side = 0;
+	g->rc.wall_x = 0.0;
+	g->rc.hit_x = 0;
+	g->rc.hit_y = 0;
+	g->rc.draw_start = 0;
+	g->rc.draw_end = 0;
 }
 
 void	set_rcv(t_game *g, int x)
@@ -84,17 +89,19 @@ void	perform_dda(t_game *g)
 			g->rc.map.y += g->rc.step.y;
 			g->rc.side = 1;
 		}
-		if (g->map.tab[g->rc.map.y][g->rc.map.x] > '0')
+		if (g->map.tab[g->rc.map.y][g->rc.map.x] == '1')
 		{
-			g->tex.hit_x = g->rc.map.x;
-			g->tex.hit_y = g->rc.map.y;
+			g->rc.hit_x = g->rc.map.x;
+			g->rc.hit_y = g->rc.map.y;
 			g->rc.hit = 1;
 		}
 	}
 }
 
-void	get_line_h(t_game *g, int x, int *line_h)
+int		get_line_height(t_game *g, int x)
 {
+	int		line_height;
+
 	set_rcv(g, x);
 	calculate_ray_dist(g);
 	perform_dda(g);
@@ -108,5 +115,6 @@ void	get_line_h(t_game *g, int x, int *line_h)
 					((double)g->rc.map.y - g->p.pos.y +
 					((1.0 - (double)g->rc.step.y) / 2.0)) /
 					g->rc.ray_dir.y;
-	*line_h = (int)(g->scr.size.y / g->rc.perp_wall_dist);
+	line_height = (int)(g->scr.size.y / g->rc.perp_wall_dist);
+	return (line_height);
 }

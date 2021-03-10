@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:05:38 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/05 22:31:43 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/10 20:57:53 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include "mlx/mlx.h"
 # include "gnl/get_next_line.h"
 
-#define X_EVENT_KEY_PRESS		2
-#define X_EVENT_KEY_RELEASE		3
-#define X_EVENT_KEY_EXIT		17
+# define X_EVENT_KEY_PRESS		2
+# define X_EVENT_KEY_RELEASE	3
+# define X_EVENT_KEY_EXIT		17
 
 # define KEY_ESC		53
 # define KEY_W			13
@@ -63,6 +63,9 @@ typedef struct	s_flag {
 }				t_flag;
 
 typedef struct	s_tex {
+	double			tex_pos;
+	int				tex_x;
+	int				tex_y;
 	unsigned int	*e;
 	unsigned int	*w;
 	unsigned int	*s;
@@ -70,8 +73,6 @@ typedef struct	s_tex {
 	unsigned int	*i;
 	unsigned int	c;
 	unsigned int	f;
-	int				hit_x;
-	int				hit_y;
 }				t_tex;
 
 typedef struct	s_map {
@@ -83,9 +84,9 @@ typedef struct	s_map {
 typedef struct	s_player {
 	t_fvec	pos;
 	t_fvec	dir;
-	t_fvec	old_dir;
+	t_fvec	o_dir;
 	t_fvec	plane;
-	t_fvec	old_plane;
+	t_fvec	o_plane;
 }				t_player;
 
 typedef struct	s_raycasting {
@@ -98,6 +99,11 @@ typedef struct	s_raycasting {
 	t_ivec	step;
 	int		hit;
 	int		side;
+	int		hit_x;
+	int		hit_y;
+	double	wall_x;
+	int		draw_start;
+	int		draw_end;
 }				t_raycasting;
 
 typedef struct	s_game {
@@ -178,13 +184,15 @@ int				make_bitmap(t_game *g);
 **				engine.c
 */
 
+void			calculate_tex_pos(t_game *g, int line_h, double *step);
+unsigned int	get_color(t_game *g);
 int				start_engine(t_game *g);
 
 /*
 **				raycasting.c
 */
 
-void			get_line_h(t_game *g, int x, int *line_h);
+int				get_line_height(t_game *g, int x);
 void			init_zero_rcv(t_game *g);
 void			set_rcv(t_game *g, int x);
 void			calculate_ray_dist(t_game *g);
@@ -196,16 +204,13 @@ void			perform_dda(t_game *g);
 
 void			draw_pixel(t_game *g, int x, int y, unsigned int color);
 void			draw_vertical_l(t_game *g, int len, int x, unsigned int color);
-void			draw_irec(t_game *g, t_ivec vec, int scale, unsigned int color);
-void			draw_frec(t_game *g, t_fvec vec, int scale, unsigned int color);
-void			draw_map(t_game *g);
-void			draw_player(t_game *g);
 
 /*
 **				key.c
 */
 
-int    			 key_press(int keycode, t_game *g);
+int				key_press(int keycode, t_game *g);
+void			move_view(t_game *g, double delta_x, double delta_y);
 void			rotate_view(int keycode, t_game *g);
 
 #endif
