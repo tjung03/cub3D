@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 00:46:24 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/10 20:50:39 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/11 18:36:21 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,12 @@ unsigned int	get_color(t_game *g)
 	return (color);
 }
 
-int				start_engine(t_game *g)
+int				print_image_to_window(t_game *g)
 {
 	double			step;
 	int				x;
 	int				y;
 
-	set_plane_v(g);
 	x = -1;
 	while (++x < g->scr.size.x)
 	{
@@ -83,5 +82,12 @@ int				start_engine(t_game *g)
 				draw_pixel(g, x, y, g->tex.f);
 		}
 	}
+	return (0);
+}
+
+int				start_engine(t_game *g)
+{
+	set_plane_values(g);
+	print_image_to_window(g);
 	return (0);
 }
