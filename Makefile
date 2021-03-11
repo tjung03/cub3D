@@ -35,7 +35,7 @@ $(NAME): $(OBJS)
 	@echo "\033[0m"
 
 clean:
-	@echo "\033[0;31mCleaning..."
+	@echo "\n\033[0;31mCleaning..."
 	rm -rf $(OBJS)
 	rm -f bitmap.bmp
 	@echo "\033[0m"
