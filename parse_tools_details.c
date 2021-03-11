@@ -6,13 +6,13 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 21:19:24 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/26 17:20:22 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/11 18:54:13 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	set_plane_v(t_game *g)
+void	set_plane_values(t_game *g)
 {
 	if (g->p.dir.x == 0.0 && g->p.dir.y == -1.0)
 		g->p.plane.x = 0.66;
