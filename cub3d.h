@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:05:38 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/10 20:57:53 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/11 18:52:03 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ void			init_zero(t_game *g);
 **				tools.c
 */
 
+int				exit_hook(t_game *g);
 int				close_cub3d(t_game *g, int win);
 
 /*
@@ -165,7 +166,7 @@ char			*parse_row(t_game *g, char *line, int *i);
 int				row_len(t_game *g, char *line);
 void			set_player_config(t_game *g);
 int				set_sprites_config(t_game *g);
-void			set_plane_v(t_game *g);
+void			set_plane_values(t_game *g);
 
 /*
 **				parse_check.c
@@ -186,6 +187,7 @@ int				make_bitmap(t_game *g);
 
 void			calculate_tex_pos(t_game *g, int line_h, double *step);
 unsigned int	get_color(t_game *g);
+int				print_image_to_window(t_game *g);
 int				start_engine(t_game *g);
 
 /*

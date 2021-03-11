@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:47:36 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/10 21:23:30 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/11 18:52:52 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int		start_cub3d(char *file, int bmp)
 	if (start_engine(&g) == -1)
 		return (close_cub3d(&g, 1));
 	mlx_hook(g.scr.win, X_EVENT_KEY_PRESS, 0, &key_press, &g);
+	mlx_hook(g.scr.win, X_EVENT_KEY_EXIT, 0, &exit_hook, &g);
 	mlx_put_image_to_window(g.scr.mlx, g.scr.win, g.img.ptr, 0, 0);
 	mlx_loop(g.scr.mlx);
 	return (0);
