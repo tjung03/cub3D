@@ -6,11 +6,16 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 13:03:59 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/26 20:07:08 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/11 19:03:52 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int				exit_hook(t_game *g)
+{
+	return (close_cub3d(g, 1));
+}
 
 int		close_cub3d(t_game *g, int win)
 {
