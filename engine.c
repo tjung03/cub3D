@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 00:46:24 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/11 18:36:21 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/12 23:45:11 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void			calculate_tex_pos(t_game *g, int line_h, double *step)
 		g->tex.tex_x = 64 - g->tex.tex_x - 1;
 	(*step) = 1.0 * 64 / line_h;
 	g->rc.draw_start = g->scr.size.y / 2 - line_h / 2;
-	g->rc.draw_end = g->scr.size.y / 2 + line_h / 2;
 	if (g->rc.draw_start < 0)
 		g->rc.draw_start = 0;
+	g->rc.draw_end = g->scr.size.y / 2 + line_h / 2;
 	if (g->rc.draw_end >= g->scr.size.y)
 		g->rc.draw_end = g->scr.size.y - 1;
 	g->tex.tex_pos =
@@ -57,7 +57,7 @@ unsigned int	get_color(t_game *g)
 	return (color);
 }
 
-int				print_image_to_window(t_game *g)
+int				print_image_to_window(t_game *g, double *z_depth)
 {
 	double			step;
 	int				x;
@@ -66,7 +66,7 @@ int				print_image_to_window(t_game *g)
 	x = -1;
 	while (++x < g->scr.size.x)
 	{
-		calculate_tex_pos(g, get_line_height(g, x), &step);
+		calculate_tex_pos(g, get_line_height(g, x, z_depth), &step);
 		y = -1;
 		while (++y < g->scr.size.y)
 		{
@@ -87,7 +87,10 @@ int				print_image_to_window(t_game *g)
 
 int				start_engine(t_game *g)
 {
+	double z_depth[g->scr.size.x];
+
 	set_plane_values(g);
-	print_image_to_window(g);
+	print_image_to_window(g, z_depth);
+	print_sprite_to_window(g, z_depth);
 	return (0);
 }

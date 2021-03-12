@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:05:38 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/11 18:52:03 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/13 00:39:37 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@
 # define KEY_D			2
 # define KEY_LEFT		123
 # define KEY_RIGHT		124
+
+# define U_DIV	1
+# define V_DIV	1
+# define V_MOVE 0.0
 
 typedef struct	s_fvec {
 	double	x;
@@ -187,14 +191,14 @@ int				make_bitmap(t_game *g);
 
 void			calculate_tex_pos(t_game *g, int line_h, double *step);
 unsigned int	get_color(t_game *g);
-int				print_image_to_window(t_game *g);
+int				print_image_to_window(t_game *g, double *z_depth);
 int				start_engine(t_game *g);
 
 /*
 **				raycasting.c
 */
 
-int				get_line_height(t_game *g, int x);
+int				get_line_height(t_game *g, int x, double *z_depth);
 void			init_zero_rcv(t_game *g);
 void			set_rcv(t_game *g, int x);
 void			calculate_ray_dist(t_game *g);
@@ -214,5 +218,12 @@ void			draw_vertical_l(t_game *g, int len, int x, unsigned int color);
 int				key_press(int keycode, t_game *g);
 void			move_view(t_game *g, double delta_x, double delta_y);
 void			rotate_view(int keycode, t_game *g);
+
+/*
+**				sprite.c
+*/
+
+int				print_sprite_to_window(t_game *g, double *z_depth);
+void			sort_sprites(int *order, double *dist, int amount);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:47:30 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/10 20:51:12 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/12 22:42:09 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	perform_dda(t_game *g)
 	}
 }
 
-int		get_line_height(t_game *g, int x)
+int		get_line_height(t_game *g, int x, double *z_depth)
 {
 	int		line_height;
 
@@ -115,6 +115,7 @@ int		get_line_height(t_game *g, int x)
 					((double)g->rc.map.y - g->p.pos.y +
 					((1.0 - (double)g->rc.step.y) / 2.0)) /
 					g->rc.ray_dir.y;
+	z_depth[x] = g->rc.perp_wall_dist;
 	line_height = (int)(g->scr.size.y / g->rc.perp_wall_dist);
 	return (line_height);
 }

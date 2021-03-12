@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 20:40:09 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/10 20:48:54 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/12 23:43:11 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	move_view(t_game *g, double delta_x, double delta_y)
 	tmp_y = g->p.pos.y + delta_y * 0.3;
 	if (g->map.tab[(int)g->p.pos.y][(int)g->p.pos.x] != '1')
 	{
-		if (g->map.tab[(int)tmp_y][(int)tmp_x] != '1')
+		if (g->map.tab[(int)tmp_y][(int)tmp_x] != '1'
+				&& g->map.tab[(int)tmp_y][(int)tmp_x] != '2')
 		{
 			g->p.pos.x += delta_x * 0.1;
 			g->p.pos.y += delta_y * 0.1;
