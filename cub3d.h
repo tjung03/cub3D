@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:05:38 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/14 05:28:04 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/14 06:45:31 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ typedef struct	s_game {
 	t_fvec			*spr;
 	t_raycasting	rc;
 	t_spr_config	sc;
+	unsigned int	**buffer;
 }				t_game;
 
 /*
@@ -165,6 +166,7 @@ int				start_cub3d(char *file, int bmp);
 **				tools.c
 */
 
+int				malloc_buffer(t_game *g);
 int				main_loop(t_game *g);
 int				exit_hook(t_game *g);
 int				close_cub3d(t_game *g, int win);
@@ -219,7 +221,7 @@ void			set_color_to_buffer(
 unsigned int	get_color(t_game *g);
 int				print_image_to_buffer(
 					t_game *g, unsigned int **buffer, double *z_depth);
-int				start_engine(t_game *g);
+int				start_engine(t_game *g, unsigned int **buffer);
 
 /*
 **				raycasting.c

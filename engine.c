@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 00:46:24 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/14 05:33:08 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/14 06:40:47 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,20 +92,10 @@ void			set_color_to_buffer(
 	buffer[y][x] = color;
 }
 
-int				start_engine(t_game *g)
+int				start_engine(t_game *g, unsigned int **buffer)
 {
-	unsigned int	**buffer;
 	double			z_depth[g->scr.size.x];
-	int				i;
 
-	if (!(buffer = malloc(sizeof(unsigned int *) * g->scr.size.y)))
-		return (-1);
-	i = -1;
-	while (++i < g->scr.size.y)
-	{
-		if (!(buffer[i] = malloc(sizeof(unsigned int) * g->scr.size.x)))
-			return (-1);
-	}
 	set_plane_values(g);
 	print_image_to_buffer(g, buffer, z_depth);
 	print_sprite_to_buffer(g, buffer, z_depth);

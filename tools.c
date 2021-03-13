@@ -6,11 +6,26 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 13:03:59 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/14 02:30:48 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/14 06:51:48 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int		malloc_buffer(t_game *g)
+{
+	int				i;
+	
+	if (!(g->buffer = malloc(sizeof(unsigned int *) * g->scr.size.y)))
+		return (-1);
+	i = -1;
+	while (++i < g->scr.size.y)
+	{
+		if (!(g->buffer[i] = malloc(sizeof(unsigned int) * g->scr.size.x)))
+			return (-1);
+	}
+	return (0);
+}
 
 int		main_loop(t_game *g)
 {
@@ -24,7 +39,8 @@ int		main_loop(t_game *g)
 		move_view(g, -(g->p.dir.y), g->p.dir.x);
 	if (g->p_move.rotate)
 		rotate_view(g->p_move.rotate, g);
-	start_engine(g);
+	if (start_engine(g, g->buffer) == -1)
+		return (close_cub3d(g, 1));
 	mlx_put_image_to_window(g->scr.mlx, g->scr.win, g->scr.img.ptr, 0, 0);
 	return (0);
 }
@@ -38,7 +54,6 @@ int		close_cub3d(t_game *g, int win)
 {
 	if (win == 1)
 		mlx_destroy_window(g->scr.mlx, g->scr.win);
-	free(g->scr.mlx);
 	exit(0);
 	return (0);
 }

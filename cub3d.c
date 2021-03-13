@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:47:36 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/14 02:32:54 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/14 06:45:40 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,19 @@ void	init_zero(t_game *g)
 	g->p.o_plane.x = 0.0;
 	g->p.o_plane.y = 0.0;
 	g->spr = NULL;
+	g->buffer = NULL;
 }
 
 int		start_cub3d(char *file, int bmp)
 {
-	t_game	g;
+	t_game			g;
 
 	init_zero(&g);
 	init_zero_rcv(&g);
 	g.scr.mlx = mlx_init();
 	if (parse_cube_file(file, &g) == -1)
+		return (close_cub3d(&g, 0));
+	if (malloc_buffer(&g) == -1)
 		return (close_cub3d(&g, 0));
 	if (bmp == 1)
 		return (make_bitmap(&g));
@@ -86,7 +89,6 @@ int		start_cub3d(char *file, int bmp)
 	g.scr.img.ptr = mlx_new_image(g.scr.mlx, g.scr.size.x, g.scr.size.y);
 	g.scr.img.adr = mlx_get_data_addr(
 		g.scr.img.ptr, &g.scr.img.bpp, &g.scr.img.sl, &g.scr.img.endian);
-	start_engine(&g);
 	mlx_put_image_to_window(g.scr.mlx, g.scr.win, g.scr.img.ptr, 0, 0);
 	mlx_hook(g.scr.win, X_EVENT_KEY_PRESS, 0, &key_press, &g);
 	mlx_hook(g.scr.win, X_EVENT_KEY_RELEASE, 0, &key_release, &g);
