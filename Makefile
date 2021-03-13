@@ -11,7 +11,7 @@ LXFLAGS = -lmlx -framework OpenGL -framework Appkit
 SRCS =	main.c cub3d.c \
 		parse.c parse_tools.c parse_tools_details.c \
 		parse_check.c \
-		engine.c raycasting.c sprite.c \
+		engine.c raycasting.c sprite.c sprite_details.c \
 		draw.c key.c tools.c \
 		bitmap.c \
 		utils/atoi.c utils/strchr.c utils/skipspace.c \

@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:05:38 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/13 00:39:37 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/14 05:28:04 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,32 @@ typedef struct	s_ivec {
 	int		y;
 }				t_ivec;
 
-typedef struct	s_screen {
-	void	*mlx;
-	void	*win;
-	t_ivec	size;
-}				t_screen;
-
 typedef struct	s_img {
 	void	*ptr;
 	char	*adr;
 	int		bpp;
-	int		size_line;
+	int		sl;
 	int		endian;
 }				t_img;
+
+typedef struct	s_screen {
+	void	*mlx;
+	void	*win;
+	t_img	img;
+	t_ivec	size;
+}				t_screen;
 
 typedef struct	s_flag {
 	int		err;
 	int		m;
 	int		pnum;
 }				t_flag;
+
+typedef struct	s_p_move {
+	int		y_move;
+	int		x_move;
+	int		rotate;
+}				t_p_move;
 
 typedef struct	s_tex {
 	double			tex_pos;
@@ -110,15 +117,30 @@ typedef struct	s_raycasting {
 	int		draw_end;
 }				t_raycasting;
 
+typedef struct	s_spr_config {
+	double	transform_y;
+	int		sprite_scr_x;
+	int		v_move_scr;
+	int		sprite_height;
+	int		draw_start_y;
+	int		draw_end_y;
+	int		sprite_width;
+	int		draw_start_x;
+	int		draw_end_x;
+	t_fvec	sprite;
+	t_ivec	s_color;
+}				t_spr_config;
+
 typedef struct	s_game {
 	t_screen		scr;
-	t_img			img;
 	t_flag			flag;
+	t_p_move		p_move;
 	t_tex			tex;
 	t_map			map;
 	t_player		p;
 	t_fvec			*spr;
 	t_raycasting	rc;
+	t_spr_config	sc;
 }				t_game;
 
 /*
@@ -133,16 +155,17 @@ int				check_file_name(char *s, char *extension);
 **				cub3d.c
 */
 
-int				start_cub3d(char *file, int bmp);
 void			init_zero_scr(t_screen *scr);
 void			init_zero_tex(t_tex *tex);
 void			init_zero_map(t_map *map);
 void			init_zero(t_game *g);
+int				start_cub3d(char *file, int bmp);
 
 /*
 **				tools.c
 */
 
+int				main_loop(t_game *g);
 int				exit_hook(t_game *g);
 int				close_cub3d(t_game *g, int win);
 
@@ -151,6 +174,7 @@ int				close_cub3d(t_game *g, int win);
 */
 
 int				parse_cube_file(char *file, t_game *g);
+int				parse_line(t_game *g, char *line);
 
 /*
 **				parse_tools.c
@@ -190,40 +214,61 @@ int				make_bitmap(t_game *g);
 */
 
 void			calculate_tex_pos(t_game *g, int line_h, double *step);
+void			set_color_to_buffer(
+					unsigned int **buffer, int x, int y, unsigned int color);
 unsigned int	get_color(t_game *g);
-int				print_image_to_window(t_game *g, double *z_depth);
+int				print_image_to_buffer(
+					t_game *g, unsigned int **buffer, double *z_depth);
 int				start_engine(t_game *g);
 
 /*
 **				raycasting.c
 */
 
-int				get_line_height(t_game *g, int x, double *z_depth);
 void			init_zero_rcv(t_game *g);
 void			set_rcv(t_game *g, int x);
 void			calculate_ray_dist(t_game *g);
 void			perform_dda(t_game *g);
+int				get_line_height(t_game *g, int x, double *z_depth);
 
 /*
 **				draw.c
 */
 
 void			draw_pixel(t_game *g, int x, int y, unsigned int color);
+void			draw_buffer(t_game *g, unsigned int **buffer);
 void			draw_vertical_l(t_game *g, int len, int x, unsigned int color);
 
 /*
 **				key.c
 */
 
-int				key_press(int keycode, t_game *g);
 void			move_view(t_game *g, double delta_x, double delta_y);
 void			rotate_view(int keycode, t_game *g);
+int				key_press(int keycode, t_game *g);
+int				key_release(int keycode, t_game *g);
 
 /*
 **				sprite.c
 */
 
-int				print_sprite_to_window(t_game *g, double *z_depth);
-void			sort_sprites(int *order, double *dist, int amount);
+void			init_zero_scv(t_game *g);
+void			get_sprites(t_game *g,
+					int *sprite_order, unsigned int **buffer, double *z_depth);
+int				print_sprite_to_buffer(
+						t_game *g, unsigned int **buffer, double *z_depth);
+
+/*
+**				sprite_details.c
+*/
+
+void			descending_sort(int *order, double *dist, int amount);
+void			sort_sprites(
+					t_game *g, int *sprite_order, double *sprite_distance);
+void			calculate_spr_pos(t_game *g);
+void			calculate_spr_values(
+					t_game *g, double sprite_x, double sprite_y);
+int				get_sprite_color(t_game *g,
+					int *stripe, unsigned int **buffer, double *z_depth);
 
 #endif

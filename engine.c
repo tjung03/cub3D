@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 00:46:24 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/12 23:45:11 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/14 05:33:08 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ unsigned int	get_color(t_game *g)
 	return (color);
 }
 
-int				print_image_to_window(t_game *g, double *z_depth)
+int				print_image_to_buffer(
+						t_game *g, unsigned int **buffer, double *z_depth)
 {
 	double			step;
 	int				x;
@@ -71,26 +72,43 @@ int				print_image_to_window(t_game *g, double *z_depth)
 		while (++y < g->scr.size.y)
 		{
 			if (y < g->rc.draw_start)
-				draw_pixel(g, x, y, g->tex.c);
+				set_color_to_buffer(buffer, x, y, g->tex.c);
 			else if (y >= g->rc.draw_start && y <= g->rc.draw_end)
 			{
 				g->tex.tex_y = (int)g->tex.tex_pos & (64 - 1);
 				g->tex.tex_pos += step;
-				draw_pixel(g, x, y, get_color(g));
+				set_color_to_buffer(buffer, x, y, get_color(g));
 			}
 			else
-				draw_pixel(g, x, y, g->tex.f);
+				set_color_to_buffer(buffer, x, y, g->tex.f);
 		}
 	}
 	return (0);
 }
 
+void			set_color_to_buffer(
+					unsigned int **buffer, int x, int y, unsigned int color)
+{
+	buffer[y][x] = color;
+}
+
 int				start_engine(t_game *g)
 {
-	double z_depth[g->scr.size.x];
+	unsigned int	**buffer;
+	double			z_depth[g->scr.size.x];
+	int				i;
 
+	if (!(buffer = malloc(sizeof(unsigned int *) * g->scr.size.y)))
+		return (-1);
+	i = -1;
+	while (++i < g->scr.size.y)
+	{
+		if (!(buffer[i] = malloc(sizeof(unsigned int) * g->scr.size.x)))
+			return (-1);
+	}
 	set_plane_values(g);
-	print_image_to_window(g, z_depth);
-	print_sprite_to_window(g, z_depth);
+	print_image_to_buffer(g, buffer, z_depth);
+	print_sprite_to_buffer(g, buffer, z_depth);
+	draw_buffer(g, buffer);
 	return (0);
 }

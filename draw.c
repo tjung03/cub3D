@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 00:20:14 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/10 20:17:36 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/14 05:27:12 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,23 @@ void	draw_pixel(t_game *g, int x, int y, unsigned int color)
 	char	*dst;
 	int		offset;
 
-	offset = y * g->img.size_line + x * (g->img.bpp / 8);
-	dst = g->img.adr + offset;
+	offset = y * g->scr.img.sl + x * (g->scr.img.bpp / 8);
+	dst = g->scr.img.adr + offset;
 	*(unsigned int *)dst = color;
+}
+
+void	draw_buffer(t_game *g, unsigned int **buffer)
+{
+	int		x;
+	int		y;
+
+	y = -1;
+	while (++y < g->scr.size.y)
+	{
+		x = -1;
+		while (++x < g->scr.size.x)
+			draw_pixel(g, x, y, buffer[y][x]);
+	}
 }
 
 void	draw_vertical_l(t_game *g, int len, int x, unsigned int color)

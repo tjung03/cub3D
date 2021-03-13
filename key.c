@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 20:40:09 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/12 23:43:11 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/14 05:32:40 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	rotate_view(int keycode, t_game *g)
 {
-	if (keycode == KEY_LEFT)
+	if (keycode == -1)
 	{
 		g->p.o_dir.x = g->p.dir.x;
 		g->p.dir.x = g->p.dir.x * cos(-0.06) - g->p.dir.y * sin(-0.06);
@@ -23,7 +23,7 @@ void	rotate_view(int keycode, t_game *g)
 		g->p.plane.x = g->p.plane.x * cos(-0.06) - g->p.plane.y * sin(-0.06);
 		g->p.plane.y = g->p.o_plane.x * sin(-0.06) + g->p.plane.y * cos(-0.06);
 	}
-	if (keycode == KEY_RIGHT)
+	if (keycode == 1)
 	{
 		g->p.o_dir.x = g->p.dir.x;
 		g->p.dir.x = g->p.dir.x * cos(0.06) - g->p.dir.y * sin(0.06);
@@ -54,19 +54,34 @@ void	move_view(t_game *g, double delta_x, double delta_y)
 
 int		key_press(int keycode, t_game *g)
 {
+	if (keycode == KEY_W)
+		g->p_move.y_move = -1;
+	else if (keycode == KEY_S)
+		g->p_move.y_move = 1;
+	if (keycode == KEY_A)
+		g->p_move.x_move = -1;
+	else if (keycode == KEY_D)
+		g->p_move.x_move = 1;
+	if (keycode == KEY_LEFT)
+		g->p_move.rotate = -1;
+	else if (keycode == KEY_RIGHT)
+		g->p_move.rotate = 1;
+	return (0);
+}
+
+int		key_release(int keycode, t_game *g)
+{
 	if (keycode == KEY_ESC)
 		close_cub3d(g, 1);
 	if (keycode == KEY_W)
-		move_view(g, g->p.dir.x, g->p.dir.y);
+		g->p_move.y_move = 0;
 	if (keycode == KEY_A)
-		move_view(g, g->p.dir.y, -(g->p.dir.x));
+		g->p_move.x_move = 0;
 	if (keycode == KEY_S)
-		move_view(g, -(g->p.dir.x), -(g->p.dir.y));
+		g->p_move.y_move = 0;
 	if (keycode == KEY_D)
-		move_view(g, -(g->p.dir.y), g->p.dir.x);
+		g->p_move.x_move = 0;
 	if (keycode == KEY_LEFT || keycode == KEY_RIGHT)
-		rotate_view(keycode, g);
-	start_engine(g);
-	mlx_put_image_to_window(g->scr.mlx, g->scr.win, g->img.ptr, 0, 0);
+		g->p_move.rotate = 0;
 	return (0);
 }
