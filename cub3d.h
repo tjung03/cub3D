@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:05:38 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/14 06:45:31 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/16 02:15:02 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct	s_map {
 	char	**tab;
 	t_ivec	size;
 	int		spr;
+	int		max_x;
 }				t_map;
 
 typedef struct	s_player {
@@ -186,7 +187,8 @@ int				parse_map(t_game *g, char *line, int *i);
 int				parse_resolution(t_game *g, char *line, int *i);
 int				parse_tex(t_game *g, unsigned int **tex, char *line, int *i);
 int				parse_xpm(t_game *g, unsigned int **tex, char *fname);
-int				parse_color(unsigned int *color, char *line, int *i);
+int				parse_color(t_game *g, unsigned int *color, char *line, int *i);
+int				valid_line(char *line, int start);//
 
 /*
 **				parse_tools_details.c

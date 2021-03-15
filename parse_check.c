@@ -6,35 +6,78 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 13:45:29 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/26 17:55:05 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/16 04:20:29 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int		map_ver_check(t_game *g, int *i, int *j)
+{
+	char	**tmp;
+	int		y_max;
+
+	y_max = g->map.size.y;
+	tmp = g->map.tab;
+	*i = -1;
+	while (++(*i) < g->map.size.y)
+	{
+		*j = -1;
+		while (++(*j) < g->map.size.x)
+		{
+			if (tmp[0][*j] != '1' && tmp[0][*j] != ' ')
+				return (-1);
+			else if (tmp[y_max - 1][*j] != '1' && tmp[y_max - 1][*j] != ' ')
+				return (-1);
+			else if (tmp[*i][*j] != '1' && tmp[*i][*j] != ' ')
+			{
+				if (tmp[*i - 1][*j] == ' ')
+					return (-1);
+				if (*i < y_max - 1)
+				{
+					if (tmp[*i + 1][*j] == ' ')
+						return (-1);
+				}
+			}
+		}
+	}
+	return (0);
+}
+
+int		map_hor_check(t_game *g, int *i, int *j)
+{
+	char	*tmp;
+
+	*i = -1;
+	while (++(*i) < g->map.size.y)
+	{
+		tmp = g->map.tab[*i];
+		if (tmp[0] != '1' && tmp[0] != ' ')
+			return (-1);
+		*j = 0;
+		while (++(*j) < g->map.size.x)
+		{
+			if (tmp[*j] != '1' && tmp[*j] != ' ')
+			{
+				if (tmp[*j + 1] == '\0')
+					return (-1);
+				if (tmp[*j + 1] == ' ' || tmp[*j - 1] == ' ')
+					return (-1);
+			}
+		}
+	}
+	return (0);
+}
+
 int		map_check(t_game *g)
 {
 	int		i;
 	int		j;
-
-	i = 0;
-	while (i < g->map.size.y)
-	{
-		j = 0;
-		while (j < g->map.size.x)
-		{
-			if (g->map.tab[i][j] != '1' && i == 0)
-				return (-1);
-			else if (g->map.tab[i][j] != '1' && i == g->map.size.y - 1)
-				return (-1);
-			else if (g->map.tab[i][j] != '1' && j == 0)
-				return (-1);
-			else if (g->map.tab[i][j] != '1' && j == g->map.size.x - 1)
-				return (-1);
-			j++;
-		}
-		i++;
-	}
+	
+	if (map_hor_check(g, &i, &j) == -1)
+		return (-1);
+	if (map_ver_check(g, &i, &j) == -1)
+		return (-1);
 	return (0);
 }
 

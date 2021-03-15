@@ -6,18 +6,48 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 18:55:46 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/14 00:58:26 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/16 01:37:36 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int		valid_line(char *line, int start)
+{
+	int		valid;
+	int		i;
+
+	valid = 0;
+	i = start;
+	while (line[i] != '\0')
+	{
+		if (line[i] == '1' || line[i] == '0' || line[i] == '2'
+				|| line[i] == 'N' || line[i] == 'S'
+				|| line[i] == 'W' || line[i] == 'E')
+		{
+			valid = 1;
+			break ;
+		}
+		else if (line[i] != ' ')
+		{
+			valid = -1;
+			break ;
+		}
+		i++;
+	}
+	return (valid);
+}
+
 int		parse_map(t_game *g, char *line, int *i)
 {
 	char	**tmp;
 	int		j;
+	int		valid;
 
-	g->flag.m = 1;
+	if (!(valid = valid_line(line, 0)))
+		return (0);
+	else if (valid == -1)
+		return (print_error(-1, "Error\nInvalid value int MAP\n"));
 	if (!(tmp = malloc(sizeof(char *) * (g->map.size.y + 2))))
 		return (print_error(-1, "Error\nMalloc fail(Map table)\n"));
 	j = -1;
@@ -52,6 +82,7 @@ int		parse_resolution(t_game *g, char *line, int *i)
 	skip_space(line, i);
 	if (g->scr.size.x <= 0 || g->scr.size.y <= 0 || line[*i] != '\0')
 		return (print_error(-1, "Error\nInvalid resolution\n"));
+	g->flag.m++;
 	return (0);
 }
 
@@ -96,24 +127,26 @@ int		parse_tex(t_game *g, unsigned int **tex, char *line, int *i)
 	free(fname);
 	if (j == -1)
 		return (-1);
+	g->flag.m++;
 	return (0);
 }
 
-int		parse_color(unsigned int *color, char *line, int *i)
+int		parse_color(t_game *g, unsigned int *color, char *line, int *i)
 {
-	int		r;
-	int		g;
-	int		b;
+	int		red;
+	int		green;
+	int		blue;
 
 	(*i)++;
-	r = ft_atoi(line, i);
+	red = ft_atoi(line, i);
 	(*i)++;
-	g = ft_atoi(line, i);
+	green = ft_atoi(line, i);
 	(*i)++;
-	b = ft_atoi(line, i);
+	blue = ft_atoi(line, i);
 	skip_space(line, i);
-	if (line[*i] != '\0' || r > 255 || g > 255 || b > 255)
+	if (line[*i] != '\0' || red > 255 || green > 255 || blue > 255)
 		return (print_error(-1, "Error\nInvalid floor/ceiling color\n"));
-	*color = r * 256 * 256 + g * 256 + b;
+	*color = red * 256 * 256 + green * 256 + blue;
+	g->flag.m++;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 21:19:24 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/14 05:32:16 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/16 01:39:14 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,54 +83,47 @@ void	set_player_config(t_game *g)
 int		row_len(t_game *g, char *line)
 {
 	int		cnt;
+	int		valid;
 	int		i;
 
 	cnt = 0;
 	i = -1;
 	while (line[++i] != '\0')
 	{
-		if (line[i] == '0' || line[i] == '1')
-			cnt++;
-		else if (line[i] == 'N' || line[i] == 'S'
+		if (line[i] != '0' && line[i] != '1' && line[i] != '2'
+				&& line[i] != 'N' && line[i] != 'S'
+				&& line[i] != 'W' && line[i] != 'E'
+				&& line[i] != ' ')
+			return (print_error(-1, "Error\nInvalid value in MAP\n"));
+		if (line[i] == 'N' || line[i] == 'S'
 				|| line[i] == 'W' || line[i] == 'E')
-		{
 			g->flag.pnum++;
-			cnt++;
-		}
-		else if (line[i] == '2')
-		{
+		if (line[i] == '2')
 			g->map.spr++;
-			cnt++;
-		}
+		cnt++;
+		if (!(valid = valid_line(line, i + 1)))
+			break ;
+		else if (valid == -1)
+			return (print_error(-1, "Error\nInvalid value in MAP\n"));
 	}
-	if (g->map.size.x != 0 && g->map.size.x != cnt)
-		return (print_error(-1, "Error\nInvalid value in map\n"));
 	return (cnt);
 }
 
 char	*parse_row(t_game *g, char *line, int *i)
 {
 	char	*row;
-	int		j;
 
 	if ((g->map.size.x = row_len(g, line)) == -1)
 		return (NULL);
+	if (g->map.max_x < g->map.size.x)
+		g->map.max_x = g->map.size.x;
 	if (!(row = malloc(sizeof(char) * (g->map.size.x + 1))))
 		return (NULL);
-	j = 0;
-	while (line[*i] != '\0')
+	while (*i < g->map.size.x)
 	{
-		if (line[*i] == '0' || line[*i] == '1' || line[*i] == '2'
-				|| line[*i] == 'N' || line[*i] == 'S'
-				|| line[*i] == 'W' || line[*i] == 'E')
-			row[j++] = line[*i];
-		else if (line[*i] != ' ')
-		{
-			free(row);
-			return (NULL);
-		}
+		row[*i] = line[*i];
 		(*i)++;
 	}
-	row[j] = '\0';
+	row[g->map.size.x] = '\0';
 	return (row);
 }

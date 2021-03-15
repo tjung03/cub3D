@@ -25,7 +25,7 @@ OBJS = $(SRCS:.c=.o)
 
 B_OBJS = $(B_SRCS:.c=.o)
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re bonus basic test bmp norm
 
 all: $(NAME)
 
@@ -53,6 +53,9 @@ bonus: fclean $(B_OBJS)
 
 basic: re
 	./$(NAME) maps/cub3d.cub
+
+test: re
+	./$(NAME) maps/example.cub
 
 bmp: re
 	./$(NAME) maps/cub3d.cub --save
