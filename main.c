@@ -6,19 +6,19 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 01:35:22 by tjung             #+#    #+#             */
-/*   Updated: 2021/02/18 21:01:12 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/16 04:51:14 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		print_error(int e, char *msg)
+int			print_error(int e, char *msg)
 {
 	printf("%s", msg);
 	return (e);
 }
 
-int		check_save_opt(char *s)
+static int	check_save_opt(char *s)
 {
 	char	*opt;
 	int		i;
@@ -36,7 +36,7 @@ int		check_save_opt(char *s)
 	return (1);
 }
 
-int		check_file_name(char *s, char *extension)
+int			check_file_name(char *s, char *extension)
 {
 	int		i;
 	int		j;
@@ -58,7 +58,7 @@ int		check_file_name(char *s, char *extension)
 	return (-1);
 }
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	int		bmp;
 

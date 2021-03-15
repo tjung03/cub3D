@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 13:03:59 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/16 02:14:34 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/16 05:09:00 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		malloc_buffer(t_game *g)
 {
 	int				i;
-	
+
 	if (!(g->buffer = malloc(sizeof(unsigned int *) * g->scr.size.y)))
 		return (-1);
 	i = -1;

@@ -6,13 +6,13 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 23:11:57 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/14 05:31:57 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/16 05:10:32 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	descending_sort(int *order, double *dist, int amount)
+static void		descending_sort(int *order, double *dist, int amount)
 {
 	double	tmp_dist;
 	int		tmp_order;
@@ -38,7 +38,8 @@ void	descending_sort(int *order, double *dist, int amount)
 	}
 }
 
-void	sort_sprites(t_game *g, int *sprite_order, double *sprite_distance)
+void			sort_sprites(
+						t_game *g, int *sprite_order, double *sprite_distance)
 {
 	int		i;
 
@@ -53,7 +54,7 @@ void	sort_sprites(t_game *g, int *sprite_order, double *sprite_distance)
 	descending_sort(sprite_order, sprite_distance, g->map.spr);
 }
 
-void	calculate_spr_pos(t_game *g)
+static void		calculate_spr_pos(t_game *g)
 {
 	g->sc.v_move_scr = (int)(V_MOVE / g->sc.transform_y);
 	g->sc.sprite_height =
@@ -75,7 +76,8 @@ void	calculate_spr_pos(t_game *g)
 		g->sc.draw_end_x = g->scr.size.x - 1;
 }
 
-void	calculate_spr_values(t_game *g, double sprite_x, double sprite_y)
+void			calculate_spr_values(t_game *g,
+											double sprite_x, double sprite_y)
 {
 	double	inv_det;
 	double	transform_x;
@@ -91,8 +93,8 @@ void	calculate_spr_values(t_game *g, double sprite_x, double sprite_y)
 	calculate_spr_pos(g);
 }
 
-int		get_sprite_color(
-				t_game *g, int *stripe, unsigned int **buffer, double *z_depth)
+int				get_sprite_color(
+			t_game *g, int *stripe, unsigned int **buffer, double *z_depth)
 {
 	unsigned int	color;
 	int				tex_x;

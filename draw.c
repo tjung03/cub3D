@@ -6,13 +6,13 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 00:20:14 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/14 05:27:12 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/16 04:50:08 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_pixel(t_game *g, int x, int y, unsigned int color)
+static void		draw_pixel(t_game *g, int x, int y, unsigned int color)
 {
 	char	*dst;
 	int		offset;
@@ -22,7 +22,7 @@ void	draw_pixel(t_game *g, int x, int y, unsigned int color)
 	*(unsigned int *)dst = color;
 }
 
-void	draw_buffer(t_game *g, unsigned int **buffer)
+void			draw_buffer(t_game *g, unsigned int **buffer)
 {
 	int		x;
 	int		y;
@@ -36,7 +36,7 @@ void	draw_buffer(t_game *g, unsigned int **buffer)
 	}
 }
 
-void	draw_vertical_l(t_game *g, int len, int x, unsigned int color)
+void			draw_vertical_l(t_game *g, int len, int x, unsigned int color)
 {
 	int		y;
 

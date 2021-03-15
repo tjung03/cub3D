@@ -6,13 +6,13 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 00:46:24 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/14 06:40:47 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/16 04:50:43 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void			calculate_tex_pos(t_game *g, int line_h, double *step)
+static void				calculate_tex_pos(t_game *g, int line_h, double *step)
 {
 	if (g->rc.side == 0)
 		g->rc.wall_x = g->p.pos.y + g->rc.perp_wall_dist * g->rc.ray_dir.y;
@@ -34,7 +34,7 @@ void			calculate_tex_pos(t_game *g, int line_h, double *step)
 		(g->rc.draw_start - (g->scr.size.y / 2) + (line_h / 2)) * (*step);
 }
 
-unsigned int	get_color(t_game *g)
+static unsigned int		get_color(t_game *g)
 {
 	unsigned int	color;
 
@@ -57,7 +57,7 @@ unsigned int	get_color(t_game *g)
 	return (color);
 }
 
-int				print_image_to_buffer(
+static int				print_image_to_buffer(
 						t_game *g, unsigned int **buffer, double *z_depth)
 {
 	double			step;
@@ -86,13 +86,13 @@ int				print_image_to_buffer(
 	return (0);
 }
 
-void			set_color_to_buffer(
+void					set_color_to_buffer(
 					unsigned int **buffer, int x, int y, unsigned int color)
 {
 	buffer[y][x] = color;
 }
 
-int				start_engine(t_game *g, unsigned int **buffer)
+int						start_engine(t_game *g, unsigned int **buffer)
 {
 	double			z_depth[g->scr.size.x];
 

@@ -6,13 +6,13 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:30:01 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/14 05:24:09 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/16 05:07:56 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_zero_scv(t_game *g)
+static void		init_zero_scv(t_game *g)
 {
 	g->sc.transform_y = 0.0;
 	g->sc.sprite.x = 0.0;
@@ -27,7 +27,7 @@ void	init_zero_scv(t_game *g)
 	g->sc.draw_end_x = 0;
 }
 
-void	get_sprites(t_game *g,
+static void		get_sprites(t_game *g,
 			int *sprite_order, unsigned int **buffer, double *z_depth)
 {
 	int		stripe;
@@ -45,8 +45,8 @@ void	get_sprites(t_game *g,
 	}
 }
 
-int		print_sprite_to_buffer(
-				t_game *g, unsigned int **buffer, double *z_depth)
+int				print_sprite_to_buffer(
+					t_game *g, unsigned int **buffer, double *z_depth)
 {
 	double	sprite_distance[g->map.spr];
 	int		sprite_order[g->map.spr];

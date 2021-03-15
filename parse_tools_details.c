@@ -6,13 +6,13 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 21:19:24 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/16 01:39:14 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/16 05:06:59 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	set_plane_values(t_game *g)
+void		set_plane_values(t_game *g)
 {
 	if (g->p.dir.x == 0.0 && g->p.dir.y == -1.0)
 		g->p.plane.x = 0.66;
@@ -24,7 +24,7 @@ void	set_plane_values(t_game *g)
 		g->p.plane.y = 0.66;
 }
 
-int		set_sprites_config(t_game *g)
+int			set_sprites_config(t_game *g)
 {
 	int		k;
 	int		i;
@@ -52,7 +52,7 @@ int		set_sprites_config(t_game *g)
 	return (0);
 }
 
-void	set_player_config(t_game *g)
+void		set_player_config(t_game *g)
 {
 	char	c;
 	int		i;
@@ -80,7 +80,7 @@ void	set_player_config(t_game *g)
 	}
 }
 
-int		row_len(t_game *g, char *line)
+static int	row_len(t_game *g, char *line)
 {
 	int		cnt;
 	int		valid;
@@ -109,7 +109,7 @@ int		row_len(t_game *g, char *line)
 	return (cnt);
 }
 
-char	*parse_row(t_game *g, char *line, int *i)
+char		*parse_row(t_game *g, char *line, int *i)
 {
 	char	*row;
 

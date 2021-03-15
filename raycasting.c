@@ -6,13 +6,13 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:47:30 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/12 22:42:09 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/16 05:07:24 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_zero_rcv(t_game *g)
+void			init_zero_rcv(t_game *g)
 {
 	g->rc.camera_x = 0.0;
 	g->rc.ray_dir.x = 0.0;
@@ -35,7 +35,7 @@ void	init_zero_rcv(t_game *g)
 	g->rc.draw_end = 0;
 }
 
-void	set_rcv(t_game *g, int x)
+static void		set_rcv(t_game *g, int x)
 {
 	g->rc.camera_x = (2 * x / (double)g->scr.size.x) - 1.0;
 	g->rc.ray_dir.x = g->p.dir.x + (g->p.plane.x * g->rc.camera_x);
@@ -47,7 +47,7 @@ void	set_rcv(t_game *g, int x)
 	g->rc.hit = 0;
 }
 
-void	calculate_ray_dist(t_game *g)
+static void		calculate_ray_dist(t_game *g)
 {
 	if (g->rc.ray_dir.x < 0)
 	{
@@ -73,7 +73,7 @@ void	calculate_ray_dist(t_game *g)
 	}
 }
 
-void	perform_dda(t_game *g)
+static void		perform_dda(t_game *g)
 {
 	while (g->rc.hit == 0)
 	{
@@ -98,7 +98,7 @@ void	perform_dda(t_game *g)
 	}
 }
 
-int		get_line_height(t_game *g, int x, double *z_depth)
+int				get_line_height(t_game *g, int x, double *z_depth)
 {
 	int		line_height;
 

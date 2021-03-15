@@ -6,39 +6,13 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 18:55:46 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/16 01:37:36 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/16 05:05:09 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		valid_line(char *line, int start)
-{
-	int		valid;
-	int		i;
-
-	valid = 0;
-	i = start;
-	while (line[i] != '\0')
-	{
-		if (line[i] == '1' || line[i] == '0' || line[i] == '2'
-				|| line[i] == 'N' || line[i] == 'S'
-				|| line[i] == 'W' || line[i] == 'E')
-		{
-			valid = 1;
-			break ;
-		}
-		else if (line[i] != ' ')
-		{
-			valid = -1;
-			break ;
-		}
-		i++;
-	}
-	return (valid);
-}
-
-int		parse_map(t_game *g, char *line, int *i)
+int			parse_map(t_game *g, char *line, int *i)
 {
 	char	**tmp;
 	int		j;
@@ -66,7 +40,7 @@ int		parse_map(t_game *g, char *line, int *i)
 	return (0);
 }
 
-int		parse_resolution(t_game *g, char *line, int *i)
+int			parse_resolution(t_game *g, char *line, int *i)
 {
 	int		w;
 	int		h;
@@ -86,7 +60,7 @@ int		parse_resolution(t_game *g, char *line, int *i)
 	return (0);
 }
 
-int		parse_xpm(t_game *g, unsigned int **tex, char *fname)
+static int	parse_xpm(t_game *g, unsigned int **tex, char *fname)
 {
 	int		fd;
 	void	*img;
@@ -106,7 +80,7 @@ int		parse_xpm(t_game *g, unsigned int **tex, char *fname)
 	return (0);
 }
 
-int		parse_tex(t_game *g, unsigned int **tex, char *line, int *i)
+int			parse_tex(t_game *g, unsigned int **tex, char *line, int *i)
 {
 	char	*fname;
 	int		j;
@@ -131,7 +105,7 @@ int		parse_tex(t_game *g, unsigned int **tex, char *line, int *i)
 	return (0);
 }
 
-int		parse_color(t_game *g, unsigned int *color, char *line, int *i)
+int			parse_color(t_game *g, unsigned int *color, char *line, int *i)
 {
 	int		red;
 	int		green;

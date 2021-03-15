@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:05:38 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/16 02:15:02 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/16 05:11:01 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,17 +150,12 @@ typedef struct	s_game {
 */
 
 int				print_error(int e, char *msg);
-int				check_save_opt(char *s);
 int				check_file_name(char *s, char *extension);
 
 /*
 **				cub3d.c
 */
 
-void			init_zero_scr(t_screen *scr);
-void			init_zero_tex(t_tex *tex);
-void			init_zero_map(t_map *map);
-void			init_zero(t_game *g);
 int				start_cub3d(char *file, int bmp);
 
 /*
@@ -177,7 +172,7 @@ int				close_cub3d(t_game *g, int win);
 */
 
 int				parse_cube_file(char *file, t_game *g);
-int				parse_line(t_game *g, char *line);
+int				valid_line(char *line, int start);
 
 /*
 **				parse_tools.c
@@ -186,16 +181,13 @@ int				parse_line(t_game *g, char *line);
 int				parse_map(t_game *g, char *line, int *i);
 int				parse_resolution(t_game *g, char *line, int *i);
 int				parse_tex(t_game *g, unsigned int **tex, char *line, int *i);
-int				parse_xpm(t_game *g, unsigned int **tex, char *fname);
 int				parse_color(t_game *g, unsigned int *color, char *line, int *i);
-int				valid_line(char *line, int start);//
 
 /*
 **				parse_tools_details.c
 */
 
 char			*parse_row(t_game *g, char *line, int *i);
-int				row_len(t_game *g, char *line);
 void			set_player_config(t_game *g);
 int				set_sprites_config(t_game *g);
 void			set_plane_values(t_game *g);
@@ -205,7 +197,6 @@ void			set_plane_values(t_game *g);
 */
 
 int				parse_check(t_game *g);
-int				map_check(t_game *g);
 
 /*
 **				bitmap.c
@@ -217,12 +208,8 @@ int				make_bitmap(t_game *g);
 **				engine.c
 */
 
-void			calculate_tex_pos(t_game *g, int line_h, double *step);
 void			set_color_to_buffer(
 					unsigned int **buffer, int x, int y, unsigned int color);
-unsigned int	get_color(t_game *g);
-int				print_image_to_buffer(
-					t_game *g, unsigned int **buffer, double *z_depth);
 int				start_engine(t_game *g, unsigned int **buffer);
 
 /*
@@ -230,16 +217,12 @@ int				start_engine(t_game *g, unsigned int **buffer);
 */
 
 void			init_zero_rcv(t_game *g);
-void			set_rcv(t_game *g, int x);
-void			calculate_ray_dist(t_game *g);
-void			perform_dda(t_game *g);
 int				get_line_height(t_game *g, int x, double *z_depth);
 
 /*
 **				draw.c
 */
 
-void			draw_pixel(t_game *g, int x, int y, unsigned int color);
 void			draw_buffer(t_game *g, unsigned int **buffer);
 void			draw_vertical_l(t_game *g, int len, int x, unsigned int color);
 
@@ -256,9 +239,6 @@ int				key_release(int keycode, t_game *g);
 **				sprite.c
 */
 
-void			init_zero_scv(t_game *g);
-void			get_sprites(t_game *g,
-					int *sprite_order, unsigned int **buffer, double *z_depth);
 int				print_sprite_to_buffer(
 						t_game *g, unsigned int **buffer, double *z_depth);
 
@@ -266,10 +246,8 @@ int				print_sprite_to_buffer(
 **				sprite_details.c
 */
 
-void			descending_sort(int *order, double *dist, int amount);
 void			sort_sprites(
 					t_game *g, int *sprite_order, double *sprite_distance);
-void			calculate_spr_pos(t_game *g);
 void			calculate_spr_values(
 					t_game *g, double sprite_x, double sprite_y);
 int				get_sprite_color(t_game *g,

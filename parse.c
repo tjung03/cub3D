@@ -6,13 +6,39 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 13:21:55 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/16 04:13:01 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/16 05:05:58 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	parse_line_details(t_game *g, char *line, int *i)
+int			valid_line(char *line, int start)
+{
+	int		valid;
+	int		i;
+
+	valid = 0;
+	i = start;
+	while (line[i] != '\0')
+	{
+		if (line[i] == '1' || line[i] == '0' || line[i] == '2'
+				|| line[i] == 'N' || line[i] == 'S'
+				|| line[i] == 'W' || line[i] == 'E')
+		{
+			valid = 1;
+			break ;
+		}
+		else if (line[i] != ' ')
+		{
+			valid = -1;
+			break ;
+		}
+		i++;
+	}
+	return (valid);
+}
+
+void		parse_line_details(t_game *g, char *line, int *i)
 {
 	skip_space(line, i);
 	if (line[*i] == 'R' && line[*i + 1] == ' ')
@@ -33,7 +59,7 @@ void	parse_line_details(t_game *g, char *line, int *i)
 		g->flag.err = parse_color(g, &g->tex.c, line, i);
 }
 
-int		parse_line(t_game *g, char *line)
+static int	parse_line(t_game *g, char *line)
 {
 	int		i;
 
@@ -47,7 +73,7 @@ int		parse_line(t_game *g, char *line)
 	return (g->flag.err == -1 ? -1 : 0);
 }
 
-int		adjust_map_table(t_game *g, int *i, int *j)
+int			adjust_map_table(t_game *g, int *i, int *j)
 {
 	char	**row;
 	int		x_len;
@@ -76,7 +102,7 @@ int		adjust_map_table(t_game *g, int *i, int *j)
 	return (0);
 }
 
-int		parse_cube_file(char *file, t_game *g)
+int			parse_cube_file(char *file, t_game *g)
 {
 	char	*line;
 	int		fd;
