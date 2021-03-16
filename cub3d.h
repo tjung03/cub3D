@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:05:38 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/16 05:11:01 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/16 20:43:53 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ int				parse_check(t_game *g);
 **				bitmap.c
 */
 
-int				make_bitmap(t_game *g);
+int				make_bitmap(t_game *g, unsigned int **buffer);
 
 /*
 **				engine.c
@@ -210,6 +210,8 @@ int				make_bitmap(t_game *g);
 
 void			set_color_to_buffer(
 					unsigned int **buffer, int x, int y, unsigned int color);
+int				print_image_to_buffer(
+					t_game *g, unsigned int **buffer, double *z_depth);
 int				start_engine(t_game *g, unsigned int **buffer);
 
 /*

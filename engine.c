@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 00:46:24 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/16 04:50:43 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/16 20:42:27 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ static unsigned int		get_color(t_game *g)
 	return (color);
 }
 
-static int				print_image_to_buffer(
-						t_game *g, unsigned int **buffer, double *z_depth)
+int						print_image_to_buffer(
+							t_game *g, unsigned int **buffer, double *z_depth)
 {
 	double			step;
 	int				x;
