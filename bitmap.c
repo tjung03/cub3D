@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:04:44 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/16 20:45:13 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/16 21:01:46 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void		write_bmp_info(t_game *g, int fd)
 	header[20] = (unsigned char)(s % 256);
 	header[21] = (unsigned char)(s / 256 % 256);
 	header[22] = (unsigned char)(s / 256 / 256 % 256);
-	header[23] = (unsigned char)(s / 256 / 256 / 256 );
+	header[23] = (unsigned char)(s / 256 / 256 / 256);
 	write(fd, header, 40);
 }
 
@@ -97,8 +97,6 @@ int				make_bitmap(t_game *g, unsigned int **buffer)
 
 	draw_bmp_first_screen(g, buffer);
 	fd = open("bitmap.bmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	//fd = open("bitmap.bmp", O_CREAT | O_WRONLY | O_TRUNC,
-	//									S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	write_bmp_header(g, fd);
 	write_bmp_info(g, fd);
 	write_bmp_data(g, fd, buffer);
