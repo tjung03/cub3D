@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:47:36 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/16 19:23:23 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/17 19:39:32 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int				start_cub3d(char *file, int bmp)
 		return (close_cub3d(&g, 0));
 	if (bmp == 1)
 		return (make_bitmap(&g, g.buffer));
-	g.scr.win = mlx_new_window(g.scr.mlx, g.scr.size.x, g.scr.size.y, "cub3d");
+	g.scr.win = mlx_new_window(g.scr.mlx, g.scr.size.x, g.scr.size.y, "cub3D");
 	g.scr.img.ptr = mlx_new_image(g.scr.mlx, g.scr.size.x, g.scr.size.y);
 	g.scr.img.adr = mlx_get_data_addr(
 		g.scr.img.ptr, &g.scr.img.bpp, &g.scr.img.sl, &g.scr.img.endian);
