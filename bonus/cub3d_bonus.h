@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:05:38 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/17 17:44:04 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/17 22:30:28 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <math.h>
+# include <time.h>
 # include "../mlx/mlx.h"
 # include "./gnl_bonus/get_next_line_bonus.h"
 
@@ -143,6 +144,8 @@ typedef struct	s_game {
 	t_raycasting	rc;
 	t_spr_config	sc;
 	unsigned int	**buffer;
+	time_t			t;
+	long			st;
 }				t_game;
 
 /*
@@ -254,5 +257,11 @@ void			calculate_spr_values(
 					t_game *g, double sprite_x, double sprite_y);
 int				get_sprite_color(t_game *g,
 					int *stripe, unsigned int **buffer, double *z_depth);
+
+/*
+**				time_bar.c
+*/
+
+int				make_time_bar(t_game *g, unsigned int **buffer, int win);
 
 #endif

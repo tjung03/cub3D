@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:04:44 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/17 18:05:57 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/17 22:30:00 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ static int		draw_bmp_first_screen(t_game *g, unsigned int **buffer)
 	set_plane_values(g);
 	print_image_to_buffer(g, buffer, z_depth);
 	print_sprite_to_buffer(g, buffer, z_depth);
+	make_time_bar(g, g->buffer, 0);
 	return (0);
 }
 

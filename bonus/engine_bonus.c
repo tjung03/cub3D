@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 00:46:24 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/17 17:56:11 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/17 22:29:43 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int						start_engine(t_game *g, unsigned int **buffer)
 	set_plane_values(g);
 	print_image_to_buffer(g, buffer, z_depth);
 	print_sprite_to_buffer(g, buffer, z_depth);
+	make_time_bar(g, g->buffer, 1);
 	draw_buffer(g, buffer);
 	return (0);
 }

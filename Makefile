@@ -4,7 +4,7 @@ B_NAME = cub3D_bonus
 
 CC = gcc
 
-CFLAGS = -03 -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 MLX = ./mlx
 
@@ -28,6 +28,7 @@ B_SRCS =	bonus/main_bonus.c bonus/cub3d_bonus.c \
 			bonus/sprite_bonus.c bonus/sprite_details_bonus.c \
 			bonus/draw_bonus.c bonus/key_bonus.c \
 			bonus/tools_bonus.c bonus/bitmap_bonus.c \
+			bonus/time_bar_bonus.c \
 			bonus/utils_bonus/atoi_bonus.c bonus/utils_bonus/strchr_bonus.c \
 			bonus/utils_bonus/skipspace_bonus.c bonus/utils_bonus/strdup_bonus.c \
 			bonus/utils_bonus/strjoin_bonus.c bonus/utils_bonus/strlen_bonus.c \

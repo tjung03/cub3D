@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:47:36 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/17 19:42:33 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/17 22:30:34 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,13 @@ static void		init_zero(t_game *g)
 	g->p.o_plane.y = 0.0;
 	g->spr = NULL;
 	g->buffer = NULL;
+	g->t = 0;
+	g->st = 0;
 }
 
 int				start_cub3d(char *file, int bmp)
 {
-	t_game			g;
+	t_game		g;
 
 	init_zero(&g);
 	init_zero_rcv(&g);
@@ -84,6 +86,8 @@ int				start_cub3d(char *file, int bmp)
 		return (close_cub3d(&g, 0));
 	if (malloc_buffer(&g) == -1)
 		return (close_cub3d(&g, 0));
+	g.t = time(NULL);
+	g.st = g.t;
 	if (bmp == 1)
 		return (make_bitmap(&g, g.buffer));
 	g.scr.win = mlx_new_window(g.scr.mlx, g.scr.size.x, g.scr.size.y,
