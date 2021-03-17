@@ -26,6 +26,10 @@
         "unordered_map": "c",
         "utility": "c",
         "vector": "c",
-        "__hash_table": "cpp"
+        "__hash_table": "cpp",
+        "cub3d.h": "c",
+        "utils_bonus.h": "c",
+        "utils.h": "c",
+        "cub3d_bonus.h": "c"
     }
 }
