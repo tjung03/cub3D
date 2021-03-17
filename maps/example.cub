@@ -1,4 +1,4 @@
-R 3500 2500
+R 1080 720
 NO ./textures/brick.xpm
 SO ./textures/blue.xpm
 WE ./textures/wood.xpm
