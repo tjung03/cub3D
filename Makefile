@@ -41,7 +41,7 @@ OBJS = $(SRCS:.c=.o)
 
 B_OBJS = $(B_SRCS:.c=.o)
 
-.PHONY: all clean fclean re basic sample bmp1 bmp2 norm b_all b_clean b_fclean b_re bonus b_bmp b_norm a_norm
+.PHONY: all clean fclean re basic sample bmp1 bmp2 norm b_all b_clean b_fclean b_re bonus b_bmp b_norm anorm
 
 all: $(NAME)
 
@@ -109,4 +109,4 @@ b_norm:
 
 aclean: fclean b_fclean
 
-a_norm: norm b_norm
+anorm: norm b_norm
