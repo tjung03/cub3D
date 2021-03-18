@@ -22,6 +22,7 @@ SRCS =		main.c cub3d.c \
 			gnl/get_next_line.c
 
 B_SRCS =	bonus/main_bonus.c bonus/cub3d_bonus.c \
+			bonus/init_zero_bonus.c \
 			bonus/parse_bonus.c bonus/parse_tools_bonus.c \
 			bonus/parse_tools_details_bonus.c bonus/parse_check_bonus.c \
 			bonus/engine_bonus.c bonus/raycasting_bonus.c \
