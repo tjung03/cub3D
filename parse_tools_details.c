@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 21:19:24 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/16 05:06:59 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/18 22:41:19 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static int	row_len(t_game *g, char *line)
 				&& line[i] != 'N' && line[i] != 'S'
 				&& line[i] != 'W' && line[i] != 'E'
 				&& line[i] != ' ')
-			return (print_error(-1, "Error\nInvalid value in MAP\n"));
+			return (print_error(-1, "Error\nInvalid value in Map\n"));
 		if (line[i] == 'N' || line[i] == 'S'
 				|| line[i] == 'W' || line[i] == 'E')
 			g->flag.pnum++;
@@ -104,7 +104,7 @@ static int	row_len(t_game *g, char *line)
 		if (!(valid = valid_line(line, i + 1)))
 			break ;
 		else if (valid == -1)
-			return (print_error(-1, "Error\nInvalid value in MAP\n"));
+			return (print_error(-1, "Error\nInvalid value in Map\n"));
 	}
 	return (cnt);
 }
