@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 17:18:13 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/18 18:22:23 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/18 18:27:31 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	run_bgm(void)
 {
-	system("afplay ./bonus/bgm_bonus/cub3d_bonus_bgm.wav &");
+	system("afplay ./bonus/bgm_bonus/cub3d_bonus_bgm.mp3 &");
 }
