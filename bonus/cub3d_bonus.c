@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:47:36 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/17 22:30:34 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/18 17:55:24 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int				start_cub3d(char *file, int bmp)
 	g.scr.img.ptr = mlx_new_image(g.scr.mlx, g.scr.size.x, g.scr.size.y);
 	g.scr.img.adr = mlx_get_data_addr(
 		g.scr.img.ptr, &g.scr.img.bpp, &g.scr.img.sl, &g.scr.img.endian);
-	mlx_put_image_to_window(g.scr.mlx, g.scr.win, g.scr.img.ptr, 0, 0);
+	run_bgm();
 	mlx_hook(g.scr.win, X_EVENT_KEY_PRESS, 0, &key_press, &g);
 	mlx_hook(g.scr.win, X_EVENT_KEY_RELEASE, 0, &key_release, &g);
 	mlx_hook(g.scr.win, X_EVENT_KEY_EXIT, 0, &exit_hook, &g);
