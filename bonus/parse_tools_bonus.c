@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 18:55:46 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/17 17:45:12 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/18 22:44:16 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			parse_map(t_game *g, char *line, int *i)
 	if (!(valid = valid_line(line, 0)))
 		return (0);
 	else if (valid == -1)
-		return (print_error(-1, "Error\nInvalid value int MAP\n"));
+		return (print_error(-1, "Error\nInvalid line in Map Value\n"));
 	if (!(tmp = malloc(sizeof(char *) * (g->map.size.y + 2))))
 		return (print_error(-1, "Error\nMalloc fail(Map table)\n"));
 	j = -1;

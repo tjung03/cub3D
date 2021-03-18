@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:47:36 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/18 20:58:50 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/18 22:02:07 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void		init_zero_tex(t_tex *tex)
 	tex->s = NULL;
 	tex->n = NULL;
 	tex->i = NULL;
+	tex->ii = NULL;
 	tex->c = 0x0;
 	tex->f = 0x0;
 }

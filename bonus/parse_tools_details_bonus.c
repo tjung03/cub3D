@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 21:19:24 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/17 17:45:35 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/18 22:42:10 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int			set_sprites_config(t_game *g)
 	int		i;
 	int		j;
 
-	if (!(g->spr = malloc(sizeof(t_fvec) * g->map.spr)))
+	if (!(g->spr = malloc(sizeof(t_sprite) * g->map.spr)))
 		return (-1);
 	k = 0;
 	i = 0;
@@ -39,8 +39,9 @@ int			set_sprites_config(t_game *g)
 		j = 0;
 		while (j < g->map.size.x)
 		{
-			if (g->map.tab[i][j] == '2')
+			if (g->map.tab[i][j] == '2' || g->map.tab[i][j] == '3')
 			{
+				g->spr[k].type = g->map.tab[i][j];
 				g->spr[k].x = (double)j + 0.5;
 				g->spr[k].y = (double)i + 0.5;
 				k++;
@@ -93,18 +94,18 @@ static int	row_len(t_game *g, char *line)
 		if (line[i] != '0' && line[i] != '1' && line[i] != '2'
 				&& line[i] != 'N' && line[i] != 'S'
 				&& line[i] != 'W' && line[i] != 'E'
-				&& line[i] != ' ')
-			return (print_error(-1, "Error\nInvalid value in MAP\n"));
+				&& line[i] != ' ' && line[i] != '3')
+			return (print_error(-1, "Error\nInvalid value in Map\n"));
 		if (line[i] == 'N' || line[i] == 'S'
 				|| line[i] == 'W' || line[i] == 'E')
 			g->flag.pnum++;
-		if (line[i] == '2')
+		if (line[i] == '2' || line[i] == '3')
 			g->map.spr++;
 		cnt++;
 		if (!(valid = valid_line(line, i + 1)))
 			break ;
 		else if (valid == -1)
-			return (print_error(-1, "Error\nInvalid value in MAP\n"));
+			return (print_error(-1, "Error\nInvalid value in Map\n"));
 	}
 	return (cnt);
 }

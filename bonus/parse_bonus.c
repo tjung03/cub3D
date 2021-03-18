@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 13:21:55 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/17 17:45:20 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/18 22:45:14 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int			valid_line(char *line, int start)
 	i = start;
 	while (line[i] != '\0')
 	{
-		if (line[i] == '1' || line[i] == '0' || line[i] == '2'
+		if (line[i] == '1' || line[i] == '0'
+				|| line[i] == '2' || line[i] == '3'
 				|| line[i] == 'N' || line[i] == 'S'
 				|| line[i] == 'W' || line[i] == 'E')
 		{
@@ -53,6 +54,8 @@ void		parse_line_details(t_game *g, char *line, int *i)
 		g->flag.err = parse_tex(g, &g->tex.e, line, i);
 	else if (line[*i] == 'S' && line[*i + 1] == ' ')
 		g->flag.err = parse_tex(g, &g->tex.i, line, i);
+	else if (line[*i] == 'S' && line[*i + 1] == 'S' && line[*i + 2] == ' ')
+		g->flag.err = parse_tex(g, &g->tex.ii, line, i);
 	else if (line[*i] == 'F' && line[*i + 1] == ' ')
 		g->flag.err = parse_color(g, &g->tex.f, line, i);
 	else if (line[*i] == 'C' && line[*i + 1] == ' ')
@@ -64,7 +67,7 @@ static int	parse_line(t_game *g, char *line)
 	int		i;
 
 	i = 0;
-	if (g->flag.m == 8 && line[i] != '\0')
+	if (g->flag.m == 9 && line[i] != '\0')
 		g->flag.err = parse_map(g, line, &i);
 	else
 		parse_line_details(g, line, &i);

@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 23:11:57 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/17 17:56:33 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/18 22:35:54 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,10 @@ int				get_sprite_color(
 			d = (y - g->sc.v_move_scr) * 256 - g->scr.size.y * 128
 									+ g->sc.sprite_height * 128;
 			tex_y = ((d * 64) / g->sc.sprite_height) / 256;
-			color = g->tex.i[64 * tex_y + tex_x];
+			if (g->sc.sprite.type == '2')
+				color = g->tex.i[64 * tex_y + tex_x];
+			else if (g->sc.sprite.type == '3')
+				color = g->tex.ii[64 * tex_y + tex_x];
 			if ((color & 0x00FFFFFF) != 0)
 				set_color_to_buffer(buffer, *stripe, y, color);
 		}

@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 13:45:29 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/17 17:45:16 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/18 22:06:17 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int			parse_check(t_game *g)
 	if (g->map.size.x <= 0 || g->map.size.y <= 0)
 		return (print_error(-1, "Error\nResolution parsing error\n"));
 	else if (g->tex.n == NULL || g->tex.s == NULL || g->tex.w == NULL
-				|| g->tex.e == NULL || g->tex.i == NULL)
+				|| g->tex.e == NULL || g->tex.i == NULL || g->tex.ii == NULL)
 		return (print_error(-1, "Error\nTextures parsing error\n"));
 	else if (g->tex.f == 0 || g->tex.c == 0)
 		return (print_error(-1, "Error\nColors parsing error\n"));

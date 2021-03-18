@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:05:38 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/18 20:58:40 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/18 22:31:33 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct	s_tex {
 	unsigned int	*s;
 	unsigned int	*n;
 	unsigned int	*i;
+	unsigned int	*ii;
 	unsigned int	c;
 	unsigned int	f;
 }				t_tex;
@@ -122,18 +123,26 @@ typedef struct	s_raycasting {
 	int		draw_end;
 }				t_raycasting;
 
+typedef struct	s_sprite
+{
+	double	x;
+	double	y;
+	char	type;
+}				t_sprite;
+
+
 typedef struct	s_spr_config {
-	double	transform_y;
-	int		sprite_scr_x;
-	int		v_move_scr;
-	int		sprite_height;
-	int		draw_start_y;
-	int		draw_end_y;
-	int		sprite_width;
-	int		draw_start_x;
-	int		draw_end_x;
-	t_fvec	sprite;
-	t_ivec	s_color;
+	double		transform_y;
+	int			sprite_scr_x;
+	int			v_move_scr;
+	int			sprite_height;
+	int			draw_start_y;
+	int			draw_end_y;
+	int			sprite_width;
+	int			draw_start_x;
+	int			draw_end_x;
+	t_sprite	sprite;
+	t_ivec		s_color;
 }				t_spr_config;
 
 typedef struct	s_game {
@@ -143,7 +152,7 @@ typedef struct	s_game {
 	t_tex			tex;
 	t_map			map;
 	t_player		p;
-	t_fvec			*spr;
+	t_sprite		*spr;
 	t_raycasting	rc;
 	t_spr_config	sc;
 	unsigned int	**buffer;
