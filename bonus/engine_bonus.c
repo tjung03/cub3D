@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 00:46:24 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/17 22:29:43 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/19 01:38:09 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ int						start_engine(t_game *g, unsigned int **buffer)
 	print_image_to_buffer(g, buffer, z_depth);
 	print_sprite_to_buffer(g, buffer, z_depth);
 	make_time_bar(g, g->buffer, 1);
+	if (g->scr.size.y >= 720)
+		draw_map_to_buffer(g, buffer);
 	draw_buffer(g, buffer);
 	return (0);
 }

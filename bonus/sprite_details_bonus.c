@@ -6,53 +6,11 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 23:11:57 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/18 22:35:54 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/19 04:11:44 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
-
-static void		descending_sort(int *order, double *dist, int amount)
-{
-	double	tmp_dist;
-	int		tmp_order;
-	int		i;
-	int		j;
-
-	i = -1;
-	while (++i < amount)
-	{
-		j = -1;
-		while (++j < amount - 1)
-		{
-			if (dist[j] < dist[j + 1])
-			{
-				tmp_dist = dist[j];
-				dist[j] = dist[j + 1];
-				dist[j + 1] = tmp_dist;
-				tmp_order = order[j];
-				order[j] = order[j + 1];
-				order[j + 1] = tmp_order;
-			}
-		}
-	}
-}
-
-void			sort_sprites(
-						t_game *g, int *sprite_order, double *sprite_distance)
-{
-	int		i;
-
-	i = -1;
-	while (++i < g->map.spr)
-	{
-		sprite_order[i] = i;
-		sprite_distance[i] =
-					(g->p.pos.x - g->spr[i].x) * (g->p.pos.x - g->spr[i].x)
-					+ (g->p.pos.y - g->spr[i].y) * (g->p.pos.y - g->spr[i].y);
-	}
-	descending_sort(sprite_order, sprite_distance, g->map.spr);
-}
 
 static void		calculate_spr_pos(t_game *g)
 {
@@ -93,6 +51,14 @@ void			calculate_spr_values(t_game *g,
 	calculate_spr_pos(g);
 }
 
+static void		get_color_spr_tex(t_game *g, int x, int y, unsigned int *color)
+{
+	if (g->sc.sprite.type == '2')
+		*color = g->tex.i[64 * y + x];
+	else if (g->sc.sprite.type == '3')
+		*color = g->tex.ii[64 * y + x];
+}
+
 int				get_sprite_color(
 			t_game *g, int *stripe, unsigned int **buffer, double *z_depth)
 {
@@ -114,10 +80,7 @@ int				get_sprite_color(
 			d = (y - g->sc.v_move_scr) * 256 - g->scr.size.y * 128
 									+ g->sc.sprite_height * 128;
 			tex_y = ((d * 64) / g->sc.sprite_height) / 256;
-			if (g->sc.sprite.type == '2')
-				color = g->tex.i[64 * tex_y + tex_x];
-			else if (g->sc.sprite.type == '3')
-				color = g->tex.ii[64 * tex_y + tex_x];
+			get_color_spr_tex(g, tex_x, tex_y, &color);
 			if ((color & 0x00FFFFFF) != 0)
 				set_color_to_buffer(buffer, *stripe, y, color);
 		}

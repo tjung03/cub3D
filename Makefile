@@ -27,7 +27,7 @@ B_SRCS =	bonus/main_bonus.c bonus/cub3d_bonus.c \
 			bonus/parse_tools_details_bonus.c bonus/parse_check_bonus.c \
 			bonus/engine_bonus.c bonus/raycasting_bonus.c \
 			bonus/sprite_bonus.c bonus/sprite_details_bonus.c \
-			bonus/draw_bonus.c bonus/key_bonus.c \
+			bonus/draw_bonus.c bonus/draw_details_bonus.c bonus/key_bonus.c \
 			bonus/tools_bonus.c bonus/bitmap_bonus.c \
 			bonus/time_bar_bonus.c bonus/bgm_bonus.c \
 			bonus/utils_bonus/atoi_bonus.c bonus/utils_bonus/strchr_bonus.c \
@@ -105,6 +105,6 @@ b_bmp: b_re
 	./$(B_NAME) bonus/maps_bonus/cub3d_bonus.cub --save
 
 b_norm:
-	norminette ./bonus/*.c ./bonus/*.h ./bonus/utils_bonus/*.c ./bonus/utils_bonus/*.h ./bonus/gnl_bonus/*.c ./bonusgnl_bonus/*.h
+	norminette ./bonus/*.c ./bonus/*.h ./bonus/utils_bonus/*.c ./bonus/utils_bonus/*.h ./bonus/gnl_bonus/*.c ./bonus/gnl_bonus/*.h
 
 aclean: fclean b_fclean

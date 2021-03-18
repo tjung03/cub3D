@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:05:38 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/18 22:31:33 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/19 04:05:52 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct	s_map {
 	t_ivec	size;
 	int		spr;
 	int		max_x;
+	t_ivec	minimap;
 }				t_map;
 
 typedef struct	s_player {
@@ -129,7 +130,6 @@ typedef struct	s_sprite
 	double	y;
 	char	type;
 }				t_sprite;
-
 
 typedef struct	s_spr_config {
 	double		transform_y;
@@ -242,7 +242,15 @@ int				get_line_height(t_game *g, int x, double *z_depth);
 */
 
 void			draw_buffer(t_game *g, unsigned int **buffer);
-void			draw_vertical_l(t_game *g, int len, int x, unsigned int color);
+void			draw_rectangle_to_buffer(t_game *g,
+						int scale, unsigned int **buffer, unsigned int color);
+void			draw_map_to_buffer(t_game *g, unsigned int **buffer);
+
+/*
+**				draw_details_bonus.c
+*/
+
+void			draw_player_to_buffer(t_game *g, int s, unsigned int **buffer);
 
 /*
 **				key_bonus.c
@@ -265,8 +273,6 @@ int				print_sprite_to_buffer(
 **				sprite_details_bonus.c
 */
 
-void			sort_sprites(
-					t_game *g, int *sprite_order, double *sprite_distance);
 void			calculate_spr_values(
 					t_game *g, double sprite_x, double sprite_y);
 int				get_sprite_color(t_game *g,
@@ -283,5 +289,11 @@ int				make_time_bar(t_game *g, unsigned int **buffer, int win);
 */
 
 void			run_bgm(void);
+
+/*
+**				init_zero_bonus.c
+*/
+
+void			init_zero(t_game *g);
 
 #endif

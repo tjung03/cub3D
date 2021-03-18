@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 22:52:22 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/19 00:30:20 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/19 01:33:35 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static void		init_zero_map(t_map *map)
 	map->size.y = 0;
 	map->spr = 0;
 	map->max_x = 0;
+	map->minimap.x = 0;
+	map->minimap.y = 0;
 }
 
 void			init_zero(t_game *g)

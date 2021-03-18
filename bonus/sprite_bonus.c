@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:30:01 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/18 22:33:01 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/19 04:05:59 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,48 @@ static void		init_zero_scv(t_game *g)
 	g->sc.sprite_width = 0;
 	g->sc.draw_start_x = 0;
 	g->sc.draw_end_x = 0;
+}
+
+static void		descending_sort(int *order, double *dist, int amount)
+{
+	double	tmp_dist;
+	int		tmp_order;
+	int		i;
+	int		j;
+
+	i = -1;
+	while (++i < amount)
+	{
+		j = -1;
+		while (++j < amount - 1)
+		{
+			if (dist[j] < dist[j + 1])
+			{
+				tmp_dist = dist[j];
+				dist[j] = dist[j + 1];
+				dist[j + 1] = tmp_dist;
+				tmp_order = order[j];
+				order[j] = order[j + 1];
+				order[j + 1] = tmp_order;
+			}
+		}
+	}
+}
+
+static void		sort_sprites(
+						t_game *g, int *sprite_order, double *sprite_distance)
+{
+	int		i;
+
+	i = -1;
+	while (++i < g->map.spr)
+	{
+		sprite_order[i] = i;
+		sprite_distance[i] =
+					(g->p.pos.x - g->spr[i].x) * (g->p.pos.x - g->spr[i].x)
+					+ (g->p.pos.y - g->spr[i].y) * (g->p.pos.y - g->spr[i].y);
+	}
+	descending_sort(sprite_order, sprite_distance, g->map.spr);
 }
 
 static void		get_sprites(t_game *g,
