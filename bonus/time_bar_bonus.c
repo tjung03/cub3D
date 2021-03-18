@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 20:41:24 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/17 23:00:11 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/18 21:52:45 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,13 @@ static void		draw_time_bar(t_game *g, int t, unsigned int **buffer)
 	int		hor;
 	int		ver;
 
-	y = g->scr.size.y / 2 + g->scr.size.y / 30;
-	ver = y - (g->scr.size.y / 15);
+	y = g->scr.size.y / 2 + 44;
+	ver = y - 88;
+	if (g->scr.size.y < 88)
+	{
+		y = g->scr.size.y - 1;
+		ver = 0;
+	}
 	while (y > ver + t)
 	{
 		x = g->scr.size.x * 0.98;
@@ -36,8 +41,9 @@ int				make_time_bar(t_game *g, unsigned int **buffer, int win)
 	int		gap;
 	int		bar;
 
-	bar = (g->scr.size.y / 2 + g->scr.size.y / 30)
-			- ((g->scr.size.y / 2 + g->scr.size.y / 30) - (g->scr.size.y / 15));
+	bar = 88;
+	if (g->scr.size.y < 88)
+		bar = g->scr.size.y - 1;
 	g->t = time(NULL);
 	gap = (int)(g->t - g->st);
 	if (gap >= bar)
