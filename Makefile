@@ -41,7 +41,7 @@ OBJS = $(SRCS:.c=.o)
 
 B_OBJS = $(B_SRCS:.c=.o)
 
-.PHONY: all clean fclean re basic sample bmp1 bmp2 norm b_all b_clean b_fclean b_re bonus b_bmp b_norm
+.PHONY: all clean fclean re basic sample bmp1 bmp2 norm b_all b_clean b_fclean b_re bonus b_bmp b_norm a_norm
 
 all: $(NAME)
 
@@ -108,3 +108,5 @@ b_norm:
 	norminette ./bonus/*.c ./bonus/*.h ./bonus/utils_bonus/*.c ./bonus/utils_bonus/*.h ./bonus/gnl_bonus/*.c ./bonus/gnl_bonus/*.h
 
 aclean: fclean b_fclean
+
+a_norm: norm b_norm
