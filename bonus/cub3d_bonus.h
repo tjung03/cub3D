@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:05:38 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/18 18:06:51 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/18 20:58:40 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@
 # include "../mlx/mlx.h"
 # include "./gnl_bonus/get_next_line_bonus.h"
 
-# define X_EVENT_KEY_PRESS		2
-# define X_EVENT_KEY_RELEASE	3
-# define X_EVENT_KEY_EXIT		17
+# define X_EVENT_KEY_PRESS			2
+# define X_EVENT_KEY_RELEASE		3
+# define X_EVENT_MOTION_NOTIFY		6
+# define X_EVENT_KEY_EXIT			17
 
 # define KEY_ESC		53
 # define KEY_W			13
@@ -33,6 +34,7 @@
 # define KEY_D			2
 # define KEY_LEFT		123
 # define KEY_RIGHT		124
+# define KEY_CLK_M		2
 
 # define U_DIV	1
 # define V_DIV	1
@@ -147,6 +149,7 @@ typedef struct	s_game {
 	unsigned int	**buffer;
 	time_t			t;
 	long			st;
+	int				m;
 }				t_game;
 
 /*
@@ -237,7 +240,8 @@ void			draw_vertical_l(t_game *g, int len, int x, unsigned int color);
 */
 
 void			move_view(t_game *g, double delta_x, double delta_y);
-void			rotate_view(int keycode, t_game *g);
+void			rotate_view(int keycode, t_game *g, double speed);
+int				key_mouse(int mouse_x, int mouse_y, t_game *g);
 int				key_press(int keycode, t_game *g);
 int				key_release(int keycode, t_game *g);
 

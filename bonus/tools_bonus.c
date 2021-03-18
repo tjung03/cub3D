@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 13:03:59 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/18 17:57:40 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/18 21:05:39 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,25 @@ int		main_loop(t_game *g)
 {
 	if (g->p_move.y_move == -1)
 		move_view(g, g->p.dir.x, g->p.dir.y);
-	if (g->p_move.y_move == 1)
+	else if (g->p_move.y_move == 1)
 		move_view(g, -(g->p.dir.x), -(g->p.dir.y));
 	if (g->p_move.x_move == -1)
 		move_view(g, g->p.dir.y, -(g->p.dir.x));
-	if (g->p_move.x_move == 1)
+	else if (g->p_move.x_move == 1)
 		move_view(g, -(g->p.dir.y), g->p.dir.x);
 	if (g->p_move.rotate)
-		rotate_view(g->p_move.rotate, g);
+		rotate_view(g->p_move.rotate, g, 0.06);
+	else
+	{
+		if (g->m == -2)
+			rotate_view(-1, g, 0.12);
+		else if (g->m == -1)
+			rotate_view(-1, g, 0.06);
+		else if (g->m == 1)
+			rotate_view(1, g, 0.06);
+		else if (g->m == 2)
+			rotate_view(1, g, 0.12);
+	}
 	if (start_engine(g, g->buffer) == -1)
 		return (close_cub3d(g, 1));
 	mlx_put_image_to_window(g->scr.mlx, g->scr.win, g->scr.img.ptr, 0, 0);

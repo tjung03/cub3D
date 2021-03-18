@@ -6,7 +6,7 @@
 /*   By: tjung <tjung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:47:36 by tjung             #+#    #+#             */
-/*   Updated: 2021/03/18 17:55:24 by tjung            ###   ########.fr       */
+/*   Updated: 2021/03/18 20:58:50 by tjung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static void		init_zero(t_game *g)
 	g->buffer = NULL;
 	g->t = 0;
 	g->st = 0;
+	g->m = 0;
 }
 
 int				start_cub3d(char *file, int bmp)
@@ -98,6 +99,7 @@ int				start_cub3d(char *file, int bmp)
 	run_bgm();
 	mlx_hook(g.scr.win, X_EVENT_KEY_PRESS, 0, &key_press, &g);
 	mlx_hook(g.scr.win, X_EVENT_KEY_RELEASE, 0, &key_release, &g);
+	mlx_hook(g.scr.win, X_EVENT_MOTION_NOTIFY, 0, &key_mouse, &g);
 	mlx_hook(g.scr.win, X_EVENT_KEY_EXIT, 0, &exit_hook, &g);
 	mlx_loop_hook(g.scr.mlx, &main_loop, &g);
 	mlx_loop(g.scr.mlx);
