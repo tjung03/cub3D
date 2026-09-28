@@ -1,48 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="500" viewBox="0 0 1000 500" role="img" aria-labelledby="title desc">
-<title id="title">cub3D · 렌더링 흐름</title><desc id="desc">cub 파일을 파싱하고 화면 버퍼를 준비한 뒤 각 화면 열의 Ray를 계산한다. DDA로 벽 충돌을 찾고 텍스처를 합성한 다음 Sprite를 Z-depth와 비교해 버퍼에 합성하고 MiniLibX로 출력한다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="390" viewBox="0 0 1000 390" role="img" aria-labelledby="title desc">
+<title id="title">cub3D · Raycasting 흐름</title>
+<desc id="desc">cub 파일에서 맵과 플레이어 상태를 읽고 화면 열마다 Ray 방향을 계산한다. DDA로 벽 충돌 격자를 찾은 뒤 수직 거리와 텍스처 좌표를 계산한다.</desc>
 <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8Z" fill="#64748b"/></marker></defs>
-<rect width="1000" height="500" rx="16" fill="#f8fafc"/>
+<rect width="1000" height="390" rx="16" fill="#f8fafc"/>
 <g font-family="Arial,'Noto Sans CJK KR','Malgun Gothic',sans-serif">
-<text x="32" y="44" font-size="27" font-weight="700" fill="#17253b">cub3D · 렌더링 흐름</text>
-<text x="32" y="74" font-size="16" fill="#4b5e78">맵 입력 · Raycasting · Depth 처리 · Frame 출력</text>
+<text x="32" y="44" font-size="27" font-weight="700" fill="#17253b">cub3D · Raycasting 흐름</text>
+<text x="32" y="74" font-size="16" fill="#4b5e78">Map Input · Ray Direction · DDA · Wall Distance</text>
 
-<rect x="32" y="104" width="936" height="96" rx="12" fill="#edf2ff" stroke="#b8c7e3"/>
-<text x="52" y="136" font-size="17" font-weight="700" fill="#4865a0">01  입력 준비</text>
-<rect x="214" y="122" width="240" height="60" rx="10" fill="#fff" stroke="#cbd5e1"/>
-<text x="232" y="148" font-size="18" font-weight="700" fill="#163b76">.cub 파일 파싱</text>
-<text x="232" y="172" font-size="14" fill="#263a54">맵 · 텍스처 · 색상 · 플레이어</text>
-<rect x="548" y="122" width="240" height="60" rx="10" fill="#fff" stroke="#cbd5e1"/>
-<text x="566" y="148" font-size="18" font-weight="700" fill="#163b76">화면 버퍼 준비</text>
-<text x="566" y="172" font-size="14" fill="#263a54">게임 상태 · Image Buffer</text>
-<path d="M454 152 H538" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="32" y="112" width="936" height="210" rx="12" fill="#edf2ff" stroke="#b8c7e3"/>
 
-<path d="M668 182 V222 H292 V242" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="70" y="174" width="185" height="88" rx="10" fill="#fff" stroke="#cbd5e1"/>
+<text x="90" y="204" font-size="18" font-weight="700" fill="#163b76">.cub 파싱</text>
+<text x="90" y="232" font-size="14" fill="#263a54">맵 · 플레이어 · 텍스처</text>
 
-<rect x="32" y="226" width="936" height="116" rx="12" fill="#fff" stroke="#b8c7e3"/>
-<text x="52" y="258" font-size="17" font-weight="700" fill="#4865a0">02  Raycasting · Wall</text>
-<rect x="182" y="246" width="210" height="72" rx="10" fill="#f5f8ff" stroke="#cbd5e1"/>
-<text x="200" y="275" font-size="17" font-weight="700" fill="#163b76">Ray 방향 계산</text>
-<text x="200" y="300" font-size="14" fill="#263a54">화면 열 단위</text>
-<rect x="425" y="246" width="210" height="72" rx="10" fill="#f5f8ff" stroke="#cbd5e1"/>
-<text x="443" y="275" font-size="17" font-weight="700" fill="#163b76">DDA 벽 탐색</text>
-<text x="443" y="300" font-size="14" fill="#263a54">충돌 격자 · 수직 거리</text>
-<rect x="668" y="246" width="210" height="72" rx="10" fill="#f5f8ff" stroke="#cbd5e1"/>
-<text x="686" y="275" font-size="17" font-weight="700" fill="#163b76">벽 텍스처 합성</text>
-<text x="686" y="300" font-size="14" fill="#263a54">천장 · 벽 · 바닥 · Z-depth</text>
-<path d="M392 282 H415" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
-<path d="M635 282 H658" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="300" y="174" width="185" height="88" rx="10" fill="#fff" stroke="#cbd5e1"/>
+<text x="320" y="204" font-size="18" font-weight="700" fill="#163b76">Ray 계산</text>
+<text x="320" y="232" font-size="14" fill="#263a54">화면 열마다 방향 생성</text>
 
-<path d="M773 318 V364 H294 V382" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="530" y="174" width="185" height="88" rx="10" fill="#fff" stroke="#cbd5e1"/>
+<text x="550" y="204" font-size="18" font-weight="700" fill="#163b76">DDA 탐색</text>
+<text x="550" y="232" font-size="14" fill="#263a54">벽 1 충돌 격자 탐색</text>
 
-<rect x="32" y="366" width="936" height="102" rx="12" fill="#ecf8f4" stroke="#a9d5c6"/>
-<text x="52" y="398" font-size="17" font-weight="700" fill="#086b62">03  Sprite · Output</text>
-<rect x="182" y="386" width="220" height="58" rx="10" fill="#fff" stroke="#cbd5e1"/>
-<text x="200" y="411" font-size="17" font-weight="700" fill="#086b62">Sprite 거리 정렬</text><text x="200" y="433" font-size="14" fill="#263a54">Z-depth 비교 후 합성</text>
-<rect x="455" y="386" width="220" height="58" rx="10" fill="#fff" stroke="#cbd5e1"/>
-<text x="473" y="411" font-size="17" font-weight="700" fill="#086b62">2D Color Buffer</text><text x="473" y="433" font-size="14" fill="#263a54">벽 + Sprite 결과</text>
-<rect x="728" y="386" width="170" height="58" rx="10" fill="#fff" stroke="#cbd5e1"/>
-<text x="746" y="411" font-size="17" font-weight="700" fill="#086b62">MiniLibX</text><text x="746" y="433" font-size="14" fill="#263a54">Frame 출력</text>
-<path d="M402 415 H445" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
-<path d="M675 415 H718" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
-<text x="182" y="486" font-size="14" fill="#64748b">키 입력 상태를 다음 main_loop에서 위치·시선에 반영한 뒤 다시 렌더링</text>
+<rect x="760" y="174" width="170" height="88" rx="10" fill="#fff" stroke="#cbd5e1"/>
+<text x="780" y="204" font-size="18" font-weight="700" fill="#163b76">벽 계산</text>
+<text x="780" y="232" font-size="14" fill="#263a54">거리 · 높이 · Texture</text>
+
+<path d="M255 218 H290" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M485 218 H520" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M715 218 H750" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+<rect x="32" y="342" width="936" height="26" rx="8" fill="#fff" stroke="#cbd5e1"/>
+<text x="52" y="360" font-size="13" fill="#475569">계산한 벽 깊이(z_depth)는 같은 화면 열에서 Sprite가 벽 앞에 있는지 판단할 때 다시 사용</text>
 </g></svg>
