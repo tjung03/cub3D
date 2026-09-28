@@ -8,13 +8,17 @@
 
 ## 렌더링 흐름
 
-![cub3D의 맵 파싱부터 DDA 벽 탐색, 텍스처와 스프라이트 합성, MiniLibX 출력까지의 렌더링 흐름](docs/images/rendering-flow.svg)
+### Raycasting
 
-1. **광선 생성:** 플레이어 방향과 카메라 평면으로 화면 열마다 광선 방향을 계산합니다.
-2. **벽 탐색:** DDA(Digital Differential Analyzer) 방식으로 광선이 지나는 격자를 차례로 검사해 벽 `1`을 찾습니다. 시선 방향 기준의 깊이로 화면에 그릴 벽 높이를 계산합니다.
-3. **텍스처 합성:** 충돌 면과 방향에 따라 동·서·남·북 텍스처를 선택하고 버퍼를 채웁니다.
-4. **물체 그리기:** 물체의 위치와 크기를 화면 좌표로 변환합니다. 먼 물체부터 그리되, 같은 화면 열의 벽보다 앞에 있는 부분만 버퍼에 덧그립니다.
-5. **화면 표시:** 완성한 버퍼를 MiniLibX 이미지로 옮겨 창에 출력합니다.
+![cub 파일 파싱부터 화면 열별 Ray 계산, DDA 벽 탐색과 벽 거리 계산까지의 흐름](docs/images/rendering-flow.svg)
+
+플레이어 위치와 카메라 평면으로 화면 열마다 Ray 방향을 계산하고, DDA(Digital Differential Analyzer) 방식으로 벽 `1`을 만날 때까지 격자를 탐색합니다. 충돌 위치와 방향으로 벽 높이와 텍스처 좌표를 계산하며, 열별 벽 깊이는 Sprite 처리에서도 사용합니다.
+
+### Frame 합성
+
+![벽 깊이를 기준으로 Sprite를 합성하고 2D Color Buffer를 MiniLibX로 출력하는 흐름](docs/images/frame-composition.svg)
+
+벽·천장·바닥을 먼저 Color Buffer에 기록한 뒤 Sprite를 거리순으로 처리합니다. 같은 화면 열에서 벽보다 앞에 있는 Sprite 픽셀만 합성하고, 완성된 Buffer를 MiniLibX 이미지에 복사해 화면에 출력합니다.
 
 오브젝트 표시 오류를 수정하는 과정에서 [벽과 물체를 2차원 색상 버퍼에 모은 뒤 한 번에 출력하는 방식](https://github.com/tjung03/cub3D/commit/c7b744e4024de39ba64b6bcad390a99d8037d893)을 적용했습니다. 벽에 가까이 갔을 때 텍스처가 휘던 문제는 [그리기 시작 위치를 화면 범위로 제한](https://github.com/tjung03/cub3D/commit/ae4125058f928b3281a863b6acc8724c202749b0)하는 수정으로 다뤘습니다.
 
