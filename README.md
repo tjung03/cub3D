@@ -6,29 +6,6 @@
 
 맵 안의 물체는 2D 이미지인 스프라이트(sprite)로 표현합니다. 물체를 먼 순서부터 그리고 벽까지의 거리와 비교해, 벽 뒤에 있는 부분은 화면에 그리지 않습니다.
 
-## 구현 기능
-
-| 기본 버전 | 보너스 버전에서 추가 |
-| --- | --- |
-| 방향별 벽 텍스처, 바닥·천장 색상 | 두 종류의 스프라이트 |
-| 이동·회전, 벽·물체를 통과하지 않도록 이동 제한 | 마우스 위치에 따른 시점 회전 |
-| 물체의 거리 정렬과 벽 뒤 영역 표시 제외 | 플레이어 위치·방향을 표시하는 미니맵 |
-| 첫 화면을 BMP 파일로 저장 | 시간 제한 막대와 배경음 재생 |
-
-## 코드 구조
-
-| 경로 | 역할 |
-| --- | --- |
-| [main.c](main.c) · [cub3d.c](cub3d.c) | 인자 검사, 게임 상태·창·이벤트 루프 초기화 |
-| [parse.c](parse.c) · [parse_tools.c](parse_tools.c) · [parse_check.c](parse_check.c) | 해상도·텍스처·색상·맵과 플레이어 정보 읽기 |
-| [raycasting.c](raycasting.c) · [engine.c](engine.c) | 격자 단위 벽 탐색, 벽 높이와 텍스처 좌표 계산 |
-| [sprite.c](sprite.c) · [sprite_details.c](sprite_details.c) | 스프라이트 정렬·투영·깊이 비교 |
-| [draw.c](draw.c) · [key.c](key.c) | 이미지 버퍼 출력, 이동과 회전 |
-| [bitmap.c](bitmap.c) | BMP 헤더와 픽셀 데이터 저장 |
-| [bonus/](bonus/) | 보너스 버전의 별도 소스·맵·텍스처 |
-| [mlx/](mlx/) | 함께 포함된 macOS용 MiniLibX |
-| [maps/](maps/) · [textures/](textures/) | 기본 예제 맵과 64×64 XPM 텍스처 |
-
 ## 렌더링 흐름
 
 ```mermaid
@@ -52,6 +29,29 @@ flowchart LR
 5. **화면 표시:** 완성한 버퍼를 MiniLibX 이미지로 옮겨 창에 출력합니다.
 
 오브젝트 표시 오류를 수정하는 과정에서 [벽과 물체를 2차원 색상 버퍼에 모은 뒤 한 번에 출력하는 방식](https://github.com/tjung03/cub3D/commit/c7b744e4024de39ba64b6bcad390a99d8037d893)을 적용했습니다. 벽에 가까이 갔을 때 텍스처가 휘던 문제는 [그리기 시작 위치를 화면 범위로 제한](https://github.com/tjung03/cub3D/commit/ae4125058f928b3281a863b6acc8724c202749b0)하는 수정으로 다뤘습니다.
+
+## 구현 기능
+
+| 기본 버전 | 보너스 버전에서 추가 |
+| --- | --- |
+| 방향별 벽 텍스처, 바닥·천장 색상 | 두 종류의 스프라이트 |
+| 이동·회전, 벽·물체를 통과하지 않도록 이동 제한 | 마우스 위치에 따른 시점 회전 |
+| 물체의 거리 정렬과 벽 뒤 영역 표시 제외 | 플레이어 위치·방향을 표시하는 미니맵 |
+| 첫 화면을 BMP 파일로 저장 | 시간 제한 막대와 배경음 재생 |
+
+## 코드 구조
+
+| 경로 | 역할 |
+| --- | --- |
+| [main.c](main.c) · [cub3d.c](cub3d.c) | 인자 검사, 게임 상태·창·이벤트 루프 초기화 |
+| [parse.c](parse.c) · [parse_tools.c](parse_tools.c) · [parse_check.c](parse_check.c) | 해상도·텍스처·색상·맵과 플레이어 정보 읽기 |
+| [raycasting.c](raycasting.c) · [engine.c](engine.c) | 격자 단위 벽 탐색, 벽 높이와 텍스처 좌표 계산 |
+| [sprite.c](sprite.c) · [sprite_details.c](sprite_details.c) | 스프라이트 정렬·투영·깊이 비교 |
+| [draw.c](draw.c) · [key.c](key.c) | 이미지 버퍼 출력, 이동과 회전 |
+| [bitmap.c](bitmap.c) | BMP 헤더와 픽셀 데이터 저장 |
+| [bonus/](bonus/) | 보너스 버전의 별도 소스·맵·텍스처 |
+| [mlx/](mlx/) | 함께 포함된 macOS용 MiniLibX |
+| [maps/](maps/) · [textures/](textures/) | 기본 예제 맵과 64×64 XPM 텍스처 |
 
 ## macOS 빌드와 실행
 
