@@ -73,6 +73,7 @@ static int	parse_line(t_game *g, char *line)
 	return (g->flag.err == -1 ? -1 : 0);
 }
 
+/* 길이가 다른 맵 행을 공백으로 채워 같은 폭의 좌표 테이블로 맞춘다. */
 int			adjust_map_table(t_game *g, int *i, int *j)
 {
 	char	**row;
@@ -102,6 +103,7 @@ int			adjust_map_table(t_game *g, int *i, int *j)
 	return (0);
 }
 
+/* 파일을 읽은 뒤 맵 폭을 맞추고 플레이어·스프라이트 위치를 계산한 다음 검증한다. */
 int			parse_cube_file(char *file, t_game *g)
 {
 	char	*line;
